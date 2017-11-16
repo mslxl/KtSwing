@@ -3,18 +3,7 @@ package io.github.mslxl.ktswing
 import java.awt.*
 import javax.swing.*
 
-interface Content {
-    fun add(comp: Component): Component
-}
 
-fun _createContent(onAdd: (comp: Component) -> Unit): Content {
-    return object : Content {
-        override fun add(comp: Component): Component {
-            onAdd.invoke(comp)
-            return comp;
-        }
-    }
-}
 
 // FlowLayout
 class _FlowLayout : JPanel(), Content {
@@ -130,12 +119,6 @@ inline fun Container.cardpanel(init:_CardLayout.()->Unit):JPanel = _CardLayout()
 class _AabsoluteLayout:JPanel(){
     init {
         layout = null
-    }
-    inline fun at(x:Int,y:Int,width:Int,height:Int,init: Content.() -> Unit){
-        _createContent {
-            it.setBounds(x, y, width, height)
-            this.add(it)
-        }.apply(init)
     }
     inline fun at(init: Content.() -> Unit){
         _createContent {

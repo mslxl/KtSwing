@@ -4,6 +4,19 @@ import javafx.scene.control.RadioButton
 import java.awt.Component
 import javax.swing.*
 
+interface Content {
+    fun add(comp: Component): Component
+}
+
+fun _createContent(onAdd: (comp: Component) -> Unit): Content {
+    return object : Content {
+        override fun add(comp: Component): Component {
+            onAdd.invoke(comp)
+            return comp;
+        }
+    }
+}
+
 inline fun <E:Component> __ktswing(comp:E,parent:Content,init:E.()->Unit):E{
     parent.add(comp)
     init.invoke(comp)
