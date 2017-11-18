@@ -1,7 +1,8 @@
 import io.github.mslxl.ktswing.*
-import java.awt.Color
-import javax.swing.JLabel
+import io.github.mslxl.ktswing.event.addWindowListener
+import io.github.mslxl.ktswing.event.onActionPerformed
 import javax.swing.JOptionPane
+import javax.swing.JTextField
 
 fun main(args: Array<String>) {
     frame(title = "Test1") {
@@ -9,27 +10,30 @@ fun main(args: Array<String>) {
             height = 500
             width = 600
         }
+
         addWindowListener {
             onActivated {
                 println("Activated")
             }
         }
+
         isResizable = false
         exitOnClose
+
         menubar {
-            menu("hello"){
-                menuItem("world"){
+            menu("hello") {
+                menuItem("world") {
                     onActionPerformed {
-                        JOptionPane.showMessageDialog(this@frame,"hello,world")
+                        JOptionPane.showMessageDialog(this@frame, "hello,world")
                     }
                 }
             }
         }
+
         absolutepanel {
-            at{
-                label("KtSwing"){
+            at {
+                label("KtSwing") {
                     bounds {
-                        name = "Title"
                         x = 20
                         y = 20
                         width = 560
@@ -47,19 +51,18 @@ fun main(args: Array<String>) {
                     }
                     north {
                         flowpanel {
-                            val field = textfield("hello,world")
+                            textfield("hello,world") {
+                                name = "text"
+                            }
                             button("Click Me") {
                                 onActionPerformed {
-                                    JOptionPane.showMessageDialog(this, findComponentByName<JLabel>("Title")!!.text+field.text)
-
+                                    JOptionPane.showMessageDialog(this, findComponentByName<JTextField>("text")!!.text)
                                 }
                             }
                         }
-
                     }
                 }
             }
         }
-
     }
 }

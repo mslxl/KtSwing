@@ -9,7 +9,7 @@ import javax.swing.JComponent
 import javax.swing.JFrame
 import javax.swing.WindowConstants.*
 
-fun frame(title:String="", frame: JFrame = JFrame(), init:JFrame.()->Unit):JFrame{
+inline fun frame(title:String="", frame: JFrame = JFrame(), init:JFrame.()->Unit):JFrame{
     frame.title = title
     init(frame)
     frame.isVisible = true

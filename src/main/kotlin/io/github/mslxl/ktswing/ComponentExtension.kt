@@ -27,11 +27,15 @@ fun <T> Component.findComponentByName(name:String):T?{
         root = root.parent
     }
     fun find(container: Container):Component?{
-        container.components.forEach {
+        val comps = container.components
+        for (it in comps) {
             if (it.name == name){
                 return it
             } else if (it is Container){
-                return find(it)
+                val result = find(it)
+                if(result != null){
+                    return result
+                }
             }
         }
         return null
