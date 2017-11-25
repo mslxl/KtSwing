@@ -1,4 +1,5 @@
-// Generate by KtSwing in ( Nov 25, 2017 11:46:47 AM )
+package io.github.mslxl.ktswing.event
+// Generate by KtSwing in ( Nov 25, 2017 1:08:28 PM )
 
 class _WindowFocusListener(val component:java.awt.Window){
 

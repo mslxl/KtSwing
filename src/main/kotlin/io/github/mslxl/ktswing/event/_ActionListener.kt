@@ -1,4 +1,6 @@
-// Generate by KtSwing in ( Nov 25, 2017 11:46:47 AM )
+package io.github.mslxl.ktswing.event
+
+// Generate by KtSwing in ( Nov 25, 2017 1:08:28 PM )
 
 fun javax.swing.AbstractButton.actionListener(init:(java.awt.event.ActionEvent)->Unit){
     addActionListener(object:java.awt.event.ActionListener{

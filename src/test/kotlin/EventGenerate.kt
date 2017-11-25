@@ -78,9 +78,9 @@ fun main(args: Array<String>) {
     map.forEach {
         entry->
         entry.value.forEach {
-            if (!File(src,"_${it.second.simpleName}.kt").exists()){
+            if (File(src,"_${it.second.simpleName}.kt").exists()){
                 val method = entry.key.getDeclaredMethod(it.first,it.second)
-                val eventClass = generateFile(it.second,entry.key,method)
+                val eventClass = generateFile(it.second,entry.key,method,packageName)
                 println(eventClass)
                 File(src,"_${it.second.simpleName}.kt").writeText(eventClass)
             }
@@ -88,7 +88,7 @@ fun main(args: Array<String>) {
         }
     }
 }
-private fun generateFile(clazz: Class<*>, who:Class<*>, addMethod:Method,packageName:String=""):String{
+private fun generateFile(clazz: Class<*>, who:Class<*>, addMethod:Method,packageName:String):String{
     return if (clazz.declaredMethods.size > 1) generateCode(clazz, who, addMethod, packageName) else generateCodeOne(clazz, who, addMethod, packageName)
 }
 
@@ -96,6 +96,10 @@ private fun generateCodeOne(clazz: Class<*>, who:Class<*>, addMethod:Method,pack
     val method = clazz.declaredMethods
 
     val clazzString="""
+        ${
+            if (packageName!="") "package $packageName" else ""
+        }
+
         // Generate by KtSwing in ( ${DateFormat.getDateTimeInstance().format(Date())} )
 
         fun ${who.name}${if (who.hasTypeParameters()) "<*>" else ""}.${clazz.simpleName.firstCharLowerCase()}(init:(${generateArgsTypeList(method[0])})->Unit){
@@ -120,10 +124,11 @@ private fun generateCodeOne(clazz: Class<*>, who:Class<*>, addMethod:Method,pack
 private fun generateCode(clazz: Class<*>, who:Class<*>, addMethod:Method,packageName:String=""):String{
     val method = clazz.declaredMethods
     val clazzString="""
-        // Generate by KtSwing in ( ${DateFormat.getDateTimeInstance().format(Date())} )
         ${
             if (packageName!="") "package $packageName" else ""
         }
+        // Generate by KtSwing in ( ${DateFormat.getDateTimeInstance().format(Date())} )
+
         class _${clazz.simpleName}(val component:${who.name}){
 
             // Code block 1
