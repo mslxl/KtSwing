@@ -1,95 +1,77 @@
-package io.github.mslxl.ktswing.event
+// Generate by KtSwing in ( Nov 25, 2017 11:46:47 AM )
 
-import java.awt.Component
-import java.awt.event.MouseAdapter
-import java.awt.event.MouseEvent
-import java.awt.event.MouseWheelEvent
+class _MouseListener(val component:java.awt.Component){
 
-class _MouseListener(container: Component) {
+    // Code block 1
+    
+    private var mousePressedField:((java.awt.event.MouseEvent)->Unit)? = null
 
-    private var released: ((MouseEvent) -> Unit)? = null
-    private var entered: ((MouseEvent) -> Unit)? = null
-    private var clicked: ((MouseEvent) -> Unit)? = null
-    private var exited: ((MouseEvent) -> Unit)? = null
-    private var pressed: ((MouseEvent) -> Unit)? = null
+    private var mouseReleasedField:((java.awt.event.MouseEvent)->Unit)? = null
 
-    private var moved: ((MouseEvent) -> Unit)? = null
-    private var dragged: ((MouseEvent) -> Unit)? = null
+    private var mouseClickedField:((java.awt.event.MouseEvent)->Unit)? = null
 
-    private var wheelMoved: ((MouseWheelEvent) -> Unit)? = null
+    private var mouseExitedField:((java.awt.event.MouseEvent)->Unit)? = null
 
-    private val listener = object : MouseAdapter() {
-        override fun mouseReleased(e: MouseEvent) {
-            released?.invoke(e)
+    private var mouseEnteredField:((java.awt.event.MouseEvent)->Unit)? = null
+
+
+    // Code block 2
+    private val listener = object : java.awt.event.MouseListener{
+        
+        override fun mousePressed(arg0:java.awt.event.MouseEvent){
+            mousePressedField?.invoke(arg0)
         }
 
-        override fun mouseEntered(e: MouseEvent) {
-            entered?.invoke(e)
+        override fun mouseReleased(arg0:java.awt.event.MouseEvent){
+            mouseReleasedField?.invoke(arg0)
         }
 
-        override fun mouseClicked(e: MouseEvent) {
-            clicked?.invoke(e)
+        override fun mouseClicked(arg0:java.awt.event.MouseEvent){
+            mouseClickedField?.invoke(arg0)
         }
 
-        override fun mouseExited(e: MouseEvent) {
-            exited?.invoke(e)
+        override fun mouseExited(arg0:java.awt.event.MouseEvent){
+            mouseExitedField?.invoke(arg0)
         }
 
-        override fun mousePressed(e: MouseEvent) {
-            pressed?.invoke(e)
+        override fun mouseEntered(arg0:java.awt.event.MouseEvent){
+            mouseEnteredField?.invoke(arg0)
         }
 
-        override fun mouseMoved(e: MouseEvent) {
-            moved?.invoke(e)
-        }
-
-        override fun mouseDragged(e: MouseEvent) {
-            dragged?.invoke(e)
-        }
-
-        override fun mouseWheelMoved(e: MouseWheelEvent) {
-            wheelMoved?.invoke(e)
-        }
     }
 
-    init {
-        container.addMouseListener(listener)
-        container.addMouseWheelListener(listener)
-        container.addMouseMotionListener(listener)
-    }
-    fun onMouseEntered(event: (MouseEvent) -> Unit) {
-        entered = event
-    }
-    fun onMouseClicked(event: (MouseEvent) -> Unit) {
-        clicked = event
+    // Code block 3
+    init{
+        component.addMouseListener(listener)
     }
 
-    fun onMouseReleased(event: (MouseEvent) -> Unit) {
-        released = event
+    // Code block 4
+    
+    fun onMousePressed(event:(java.awt.event.MouseEvent)->Unit){
+        mousePressedField = event
     }
 
 
-    fun onMouseExited(event: (MouseEvent) -> Unit) {
-        exited = event
+    fun onMouseReleased(event:(java.awt.event.MouseEvent)->Unit){
+        mouseReleasedField = event
     }
 
-    fun onMousePressed(event: (MouseEvent) -> Unit) {
-        pressed = event
+
+    fun onMouseClicked(event:(java.awt.event.MouseEvent)->Unit){
+        mouseClickedField = event
     }
 
-    fun onMouseMoved(event: (MouseEvent) -> Unit) {
-        moved = event
+
+    fun onMouseExited(event:(java.awt.event.MouseEvent)->Unit){
+        mouseExitedField = event
     }
 
-    fun onMouseDragged(event: (MouseEvent) -> Unit) {
-        dragged = event
-    }
 
-    fun onMouseWheelMoved(event: (MouseWheelEvent) -> Unit) {
-        wheelMoved = event
+    fun onMouseEntered(event:(java.awt.event.MouseEvent)->Unit){
+        mouseEnteredField = event
     }
-
 
 
 }
-inline fun Component.addMouseListener(init: _MouseListener.() -> Unit) = _MouseListener(this).apply(init)
+
+inline fun java.awt.Component.mouseListener(init: _MouseListener.()->Unit) = _MouseListener(this).apply(init)

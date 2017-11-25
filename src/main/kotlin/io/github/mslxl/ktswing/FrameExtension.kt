@@ -16,10 +16,6 @@ inline fun frame(title:String="", frame: JFrame = JFrame(), init:JFrame.()->Unit
     return frame
 }
 
-operator fun <F:Container> F.plus(comp: Component):F{
-    this.add(comp)
-    return this
-}
 
 inline fun JFrame.size(code:Dimension.()->Unit){
     this.size = this.size.apply(code)
@@ -56,4 +52,12 @@ val JFrame.doNothingOnClose: Unit get() {
 
 val JFrame.hideOnClose: Unit get() {
     defaultCloseOperation = HIDE_ON_CLOSE
+}
+
+val JFrame.resizable:Unit get() {
+    isResizable = true
+}
+
+val JFrame.canNotResizable:Unit get() {
+    isResizable = false
 }

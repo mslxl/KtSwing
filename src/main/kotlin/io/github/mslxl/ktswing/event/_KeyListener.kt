@@ -1,41 +1,55 @@
-package io.github.mslxl.ktswing.event
+// Generate by KtSwing in ( Nov 25, 2017 11:46:47 AM )
 
-import java.awt.Component
-import java.awt.event.KeyEvent
-import java.awt.event.KeyListener
+class _KeyListener(val component:java.awt.Component){
 
-class _KeyListener(container: Component){
-    private var typed: ((KeyEvent) -> Unit)? = null
-    private var pressed: ((KeyEvent) -> Unit)? = null
-    private var released: ((KeyEvent) -> Unit)? = null
+    // Code block 1
+    
+    private var keyTypedField:((java.awt.event.KeyEvent)->Unit)? = null
 
-    private val listener = object : KeyListener {
-        override fun keyTyped(e: KeyEvent){
-            typed?.invoke(e)
+    private var keyPressedField:((java.awt.event.KeyEvent)->Unit)? = null
+
+    private var keyReleasedField:((java.awt.event.KeyEvent)->Unit)? = null
+
+
+    // Code block 2
+    private val listener = object : java.awt.event.KeyListener{
+        
+        override fun keyTyped(arg0:java.awt.event.KeyEvent){
+            keyTypedField?.invoke(arg0)
         }
-        override fun keyPressed(e: KeyEvent) {
-            pressed?.invoke(e)
+
+        override fun keyPressed(arg0:java.awt.event.KeyEvent){
+            keyPressedField?.invoke(arg0)
         }
 
-        override fun keyReleased(e: KeyEvent) {
-            released?.invoke(e)
+        override fun keyReleased(arg0:java.awt.event.KeyEvent){
+            keyReleasedField?.invoke(arg0)
         }
+
     }
 
-    fun onKeyTyped(event: (KeyEvent) -> Unit) {
-        typed = event
+    // Code block 3
+    init{
+        component.addKeyListener(listener)
     }
 
-    fun onKeyPressed(event: (KeyEvent) -> Unit) {
-        pressed = event
+    // Code block 4
+    
+    fun onKeyTyped(event:(java.awt.event.KeyEvent)->Unit){
+        keyTypedField = event
     }
 
-    fun onKeyTypReleased(event: (KeyEvent) -> Unit) {
-        released = event
+
+    fun onKeyPressed(event:(java.awt.event.KeyEvent)->Unit){
+        keyPressedField = event
     }
 
-    init {
-        container.addKeyListener(listener)
+
+    fun onKeyReleased(event:(java.awt.event.KeyEvent)->Unit){
+        keyReleasedField = event
     }
+
+
 }
-inline fun Component.addKeyListener(init: _KeyListener.()->Unit) = _KeyListener(this).apply(init)
+
+inline fun java.awt.Component.keyListener(init: _KeyListener.()->Unit) = _KeyListener(this).apply(init)

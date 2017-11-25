@@ -1,101 +1,99 @@
-package io.github.mslxl.ktswing.event
+// Generate by KtSwing in ( Nov 25, 2017 11:46:47 AM )
 
-import java.awt.Window
-import java.awt.event.WindowAdapter
-import java.awt.event.WindowEvent
+class _WindowListener(val component:java.awt.Window){
 
-class _WindowListener(container: Window){
-    private var deiconified:((WindowEvent)->Unit)? = null
-    private var activated:((WindowEvent)->Unit)? = null
-    private var deactivated:((WindowEvent)->Unit)? = null
-    private var stateChanged:((WindowEvent)->Unit)? = null
-    private var iconified:((WindowEvent)->Unit)? = null
-    private var closing:((WindowEvent)->Unit)? = null
-    private var lostFocus:((WindowEvent)->Unit)? = null
-    private var closed:((WindowEvent)->Unit)? = null
-    private var opened:((WindowEvent)->Unit)? = null
-    private var gainedFocus:((WindowEvent)->Unit)? = null
+    // Code block 1
+    
+    private var windowOpenedField:((java.awt.event.WindowEvent)->Unit)? = null
 
-    fun onDeiconified(event:(WindowEvent)->Unit){
-        deiconified = event
-    }
-    fun onActivated(event:(WindowEvent)->Unit){
-        activated = event
-    }
+    private var windowClosingField:((java.awt.event.WindowEvent)->Unit)? = null
 
-    fun onDeactivated(event:(WindowEvent)->Unit){
-        deactivated = event
-    }
+    private var windowClosedField:((java.awt.event.WindowEvent)->Unit)? = null
 
-    fun onStateChanged(event:(WindowEvent)->Unit){
-        stateChanged = event
-    }
-    fun onIconified(event:(WindowEvent)->Unit){
-        iconified = event
-    }
-    fun onClosing(event:(WindowEvent)->Unit){
-        closing = event
-    }
-    fun onLostFocus(event:(WindowEvent)->Unit){
-        lostFocus = event
-    }
-    fun onClosed(event:(WindowEvent)->Unit){
-        closed = event
-    }
-    fun onOpened(event:(WindowEvent)->Unit){
-        opened = event
-    }
-    fun onGainedFocus(event:(WindowEvent)->Unit){
-        gainedFocus = event
-    }
+    private var windowIconifiedField:((java.awt.event.WindowEvent)->Unit)? = null
 
-    private val listener = object : WindowAdapter(){
-        override fun windowDeiconified(e: WindowEvent) {
-            deiconified?.invoke(e)
+    private var windowDeiconifiedField:((java.awt.event.WindowEvent)->Unit)? = null
+
+    private var windowActivatedField:((java.awt.event.WindowEvent)->Unit)? = null
+
+    private var windowDeactivatedField:((java.awt.event.WindowEvent)->Unit)? = null
+
+
+    // Code block 2
+    private val listener = object : java.awt.event.WindowListener{
+        
+        override fun windowOpened(arg0:java.awt.event.WindowEvent){
+            windowOpenedField?.invoke(arg0)
         }
 
-        override fun windowActivated(e: WindowEvent) {
-            activated?.invoke(e)
+        override fun windowClosing(arg0:java.awt.event.WindowEvent){
+            windowClosingField?.invoke(arg0)
         }
 
-        override fun windowDeactivated(e: WindowEvent) {
-            deactivated?.invoke(e)
+        override fun windowClosed(arg0:java.awt.event.WindowEvent){
+            windowClosedField?.invoke(arg0)
         }
 
-        override fun windowStateChanged(e: WindowEvent) {
-            stateChanged?.invoke(e)
+        override fun windowIconified(arg0:java.awt.event.WindowEvent){
+            windowIconifiedField?.invoke(arg0)
         }
 
-        override fun windowIconified(e: WindowEvent) {
-            iconified?.invoke(e)
+        override fun windowDeiconified(arg0:java.awt.event.WindowEvent){
+            windowDeiconifiedField?.invoke(arg0)
         }
 
-        override fun windowClosing(e: WindowEvent) {
-            closing?.invoke(e)
+        override fun windowActivated(arg0:java.awt.event.WindowEvent){
+            windowActivatedField?.invoke(arg0)
         }
 
-        override fun windowLostFocus(e: WindowEvent) {
-            lostFocus?.invoke(e)
+        override fun windowDeactivated(arg0:java.awt.event.WindowEvent){
+            windowDeactivatedField?.invoke(arg0)
         }
-
-        override fun windowClosed(e: WindowEvent) {
-            closed?.invoke(e)
-        }
-
-        override fun windowOpened(e: WindowEvent) {
-            opened?.invoke(e)
-        }
-
-        override fun windowGainedFocus(e: WindowEvent) {
-            gainedFocus?.invoke(e)
-        }
-
 
     }
 
-    init {
-        container.addWindowListener(listener)
+    // Code block 3
+    init{
+        component.addWindowListener(listener)
     }
+
+    // Code block 4
+    
+    fun onWindowOpened(event:(java.awt.event.WindowEvent)->Unit){
+        windowOpenedField = event
+    }
+
+
+    fun onWindowClosing(event:(java.awt.event.WindowEvent)->Unit){
+        windowClosingField = event
+    }
+
+
+    fun onWindowClosed(event:(java.awt.event.WindowEvent)->Unit){
+        windowClosedField = event
+    }
+
+
+    fun onWindowIconified(event:(java.awt.event.WindowEvent)->Unit){
+        windowIconifiedField = event
+    }
+
+
+    fun onWindowDeiconified(event:(java.awt.event.WindowEvent)->Unit){
+        windowDeiconifiedField = event
+    }
+
+
+    fun onWindowActivated(event:(java.awt.event.WindowEvent)->Unit){
+        windowActivatedField = event
+    }
+
+
+    fun onWindowDeactivated(event:(java.awt.event.WindowEvent)->Unit){
+        windowDeactivatedField = event
+    }
+
+
 }
 
-inline fun Window.addWindowListener(init: _WindowListener.()->Unit) = _WindowListener(this).apply(init)
+inline fun java.awt.Window.windowListener(init: _WindowListener.()->Unit) = _WindowListener(this).apply(init)

@@ -16,4 +16,5 @@ fun JMenu.checkBoxMenuItem(text: String = "", icon: Icon? = null) = checkBoxMenu
 inline fun JMenu.radioButtonMenuItem(text: String,icon: Icon?=null,init: JRadioButtonMenuItem.() -> Unit) = JRadioButtonMenuItem(text,icon).apply { this@radioButtonMenuItem.add(this) }.apply(init)
 fun JMenu.radioButtonMenuItem(text: String,icon: Icon?=null)=radioButtonMenuItem(text, icon){}
 
-fun JMenu.separator() = this.addSeparator()
+val JMenu.separator:Unit
+    get() = this.addSeparator()

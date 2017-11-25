@@ -13,7 +13,7 @@ fun __ktswingPanelAdd(panel: BasePanel, container: Container) {
     }
 }
 
-inline fun <F : BasePanel> __ktswingPanel(panel: F, container: Container, init: F.() -> Unit): F {
+inline fun <F : BasePanel> __ktswingPanel(panel: F, container: Container, init: F.() -> Unit): BasePanel {
     __ktswingPanelAdd(panel, container)
     init.invoke(panel)
     return panel
@@ -36,29 +36,29 @@ class _BorderLayout : BasePanel() {
         layout = BorderLayout()
     }
 
-    val northAddMethod = _createContent { this.add(it, BorderLayout.NORTH) }
-    val southAddMethod = _createContent { this.add(it, BorderLayout.SOUTH) }
-    val westAddMethod = _createContent { this.add(it, BorderLayout.WEST) }
-    val centreAddMethod = _createContent { this.add(it, BorderLayout.CENTER) }
-    val eastAddMethod = _createContent { this.add(it, BorderLayout.EAST) }
+    val _northAddMethod = _createContent { this.add(it, BorderLayout.NORTH) }
+    val _southAddMethod = _createContent { this.add(it, BorderLayout.SOUTH) }
+    val _westAddMethod = _createContent { this.add(it, BorderLayout.WEST) }
+    val _centreAddMethod = _createContent { this.add(it, BorderLayout.CENTER) }
+    val _eastAddMethod = _createContent { this.add(it, BorderLayout.EAST) }
     inline fun north(init: Content.() -> Unit) {
-        northAddMethod.apply(init)
+        _northAddMethod.apply(init)
     }
 
     inline fun south(init: Content.() -> Unit) {
-        southAddMethod.apply(init)
+        _southAddMethod.apply(init)
     }
 
     inline fun west(init: Content.() -> Unit) {
-        westAddMethod.apply(init)
+        _westAddMethod.apply(init)
     }
 
     inline fun east(init: Content.() -> Unit) {
-        eastAddMethod.apply(init)
+        _eastAddMethod.apply(init)
     }
 
     inline fun centre(init: Content.() -> Unit) {
-        centreAddMethod.apply(init)
+        _centreAddMethod.apply(init)
     }
 }
 
@@ -131,7 +131,7 @@ class _CardLayout : BasePanel(), Content {
 inline fun Container.cardpanel(init: _CardLayout.() -> Unit): JPanel = __ktswingPanel(_CardLayout(), this, init)
 
 class _AabsoluteLayout : BasePanel() {
-    val addMethod = _createContent {
+    val _addMethod = _createContent {
         this.add(it)
     }
 
@@ -140,8 +140,10 @@ class _AabsoluteLayout : BasePanel() {
     }
 
     inline fun at(init: Content.() -> Unit) {
-        addMethod.apply(init)
+        _addMethod.apply(init)
     }
 }
 
 inline fun Container.absolutepanel(init: _AabsoluteLayout.() -> Unit): JPanel = __ktswingPanel(_AabsoluteLayout(), this, init)
+
+
