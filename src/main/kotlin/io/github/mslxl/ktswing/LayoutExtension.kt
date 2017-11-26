@@ -3,31 +3,21 @@ package io.github.mslxl.ktswing
 import java.awt.*
 import javax.swing.*
 
-open class BasePanel : JPanel(), Content
+open class BasePanel : JPanel()
 
-fun __ktswingPanelAdd(panel: BasePanel, container: Container) {
-    if (container is JFrame) {
-        container.contentPane = panel
-    } else {
-        container.add(panel)
-    }
-}
-
-inline fun <F : BasePanel> __ktswingPanel(panel: F, container: Container, init: F.() -> Unit): BasePanel {
-    __ktswingPanelAdd(panel, container)
-    init.invoke(panel)
-    return panel
-}
 
 // FlowLayout
 class _FlowLayout : BasePanel(), Content {
+    override fun onAddToContent(comp: Component) {
+        add(comp)
+    }
+
     init {
         layout = FlowLayout()
-
     }
 }
 
-inline fun Container.flowpanel(init: _FlowLayout.() -> Unit): JPanel = __ktswingPanel(_FlowLayout(), this, init)
+inline fun Content.flowpanel(init: _FlowLayout.() -> Unit): JPanel = __ktswing(_FlowLayout(), this, init)
 
 
 // BorderLayout
@@ -36,11 +26,18 @@ class _BorderLayout : BasePanel() {
         layout = BorderLayout()
     }
 
-    val _northAddMethod = _createContent { this.add(it, BorderLayout.NORTH) }
-    val _southAddMethod = _createContent { this.add(it, BorderLayout.SOUTH) }
-    val _westAddMethod = _createContent { this.add(it, BorderLayout.WEST) }
-    val _centreAddMethod = _createContent { this.add(it, BorderLayout.CENTER) }
-    val _eastAddMethod = _createContent { this.add(it, BorderLayout.EAST) }
+    val _northAddMethod = _createContent {
+        this.add(it, BorderLayout.NORTH) }
+    val _southAddMethod = _createContent {
+        this.add(it, BorderLayout.SOUTH) }
+    val _westAddMethod = _createContent {
+        this.add(it, BorderLayout.WEST) }
+    val _centreAddMethod = _createContent {
+        this.add(it, BorderLayout.CENTER)
+    }
+    val _eastAddMethod = _createContent {
+        this.add(it, BorderLayout.EAST) }
+
     inline fun north(init: Content.() -> Unit) {
         _northAddMethod.apply(init)
     }
@@ -62,10 +59,14 @@ class _BorderLayout : BasePanel() {
     }
 }
 
-inline fun Container.borderpanel(init: _BorderLayout.() -> Unit): JPanel = __ktswingPanel(_BorderLayout(), this, init)
+inline fun Content.borderpanel(init: _BorderLayout.() -> Unit): JPanel = __ktswing(_BorderLayout(), this, init)
 
 // GridLayout
-class _GridLayout(val rows: Int, val cols: Int, val hgap: Int, val vgap: Int) : BasePanel(), Content {
+class _GridLayout(rows: Int, cols: Int, hgap: Int, vgap: Int) : BasePanel(), Content {
+    override fun onAddToContent(comp: Component) {
+        add(comp)
+    }
+
     init {
         layout = GridLayout(rows, cols, hgap, vgap)
     }
@@ -75,7 +76,7 @@ class _GridLayout(val rows: Int, val cols: Int, val hgap: Int, val vgap: Int) : 
     }
 }
 
-inline fun Container.gridlayout(rows: Int = 1, cols: Int = 0, hgap: Int = 0, vgap: Int = 0, init: _GridLayout.() -> Unit): JPanel = __ktswingPanel(_GridLayout(rows, cols, hgap, vgap), this, init)
+inline fun Content.gridlayout(rows: Int = 1, cols: Int = 0, hgap: Int = 0, vgap: Int = 0, init: _GridLayout.() -> Unit): JPanel = __ktswing(_GridLayout(rows, cols, hgap, vgap), this, init)
 
 
 // GridBagLayout
@@ -101,10 +102,14 @@ class _GridBaglayout() : BasePanel() {
     }
 }
 
-inline fun Container.gridbagpanel(init: _GridBaglayout.() -> Unit): JPanel = __ktswingPanel(_GridBaglayout(), this, init)
+inline fun Content.gridbagpanel(init: _GridBaglayout.() -> Unit): JPanel = __ktswing(_GridBaglayout(), this, init)
 
 // BoxLayout
 class _BoxLayout(axis: AXIS) : BasePanel(), Content {
+    override fun onAddToContent(comp: Component) {
+        add(comp)
+    }
+
     init {
         layout = BoxLayout(this, when (axis) {
             AXIS.X_AXIS -> 0
@@ -119,16 +124,20 @@ enum class AXIS {
     X_AXIS, Y_AXIS, LINE_AXIS, PAGE_AXIS
 }
 
-inline fun Container.boxpanel(axis: AXIS = AXIS.X_AXIS, init: _BoxLayout.() -> Unit): JPanel = __ktswingPanel(_BoxLayout(axis), this, init)
+inline fun Content.boxpanel(axis: AXIS = AXIS.X_AXIS, init: _BoxLayout.() -> Unit): JPanel = __ktswing(_BoxLayout(axis), this, init)
 
 // CardLayout
 class _CardLayout : BasePanel(), Content {
+    override fun onAddToContent(comp: Component){
+        add(comp)
+    }
+
     init {
         layout = CardLayout()
     }
 }
 
-inline fun Container.cardpanel(init: _CardLayout.() -> Unit): JPanel = __ktswingPanel(_CardLayout(), this, init)
+inline fun Content.cardpanel(init: _CardLayout.() -> Unit): JPanel = __ktswing(_CardLayout(), this, init)
 
 class _AabsoluteLayout : BasePanel() {
     val _addMethod = _createContent {
@@ -144,6 +153,6 @@ class _AabsoluteLayout : BasePanel() {
     }
 }
 
-inline fun Container.absolutepanel(init: _AabsoluteLayout.() -> Unit): JPanel = __ktswingPanel(_AabsoluteLayout(), this, init)
+inline fun Content.absolutepanel(init: _AabsoluteLayout.() -> Unit): JPanel = __ktswing(_AabsoluteLayout(), this, init)
 
 

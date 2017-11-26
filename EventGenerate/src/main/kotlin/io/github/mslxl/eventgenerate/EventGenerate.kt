@@ -1,3 +1,5 @@
+package io.github.mslxl.eventgenerate
+
 import java.awt.Component
 import java.awt.Window
 import java.awt.event.*
@@ -7,7 +9,11 @@ import java.text.DateFormat
 import java.util.*
 import javax.swing.AbstractButton
 import javax.swing.JList
+import javax.swing.JTree
 import javax.swing.event.ListSelectionListener
+import javax.swing.event.TreeExpansionListener
+import javax.swing.event.TreeSelectionListener
+import javax.swing.event.TreeWillExpandListener
 
 // 此文件用于自动生成 Listener DSL
 
@@ -22,26 +28,25 @@ fun HashMap<Class<out Component>, Array<Pair<String,Class<*>>>>.saveListToMap(){
     val s = this
 
     // FocusListener
-    codeBlock{
+    codeBlock {
         s[Component::class.java] = arrayOf("addFocusListener" to FocusListener::class.java as Class<*>)
     }
 
     // Window
-    codeBlock{
+    codeBlock {
         s[Window::class.java] = arrayOf(
                 "addWindowFocusListener" to WindowFocusListener::class.java as Class<*>,
                 "addWindowListener" to WindowListener::class.java as Class<*>)
     }
 
     // Component
-    codeBlock{
+    codeBlock {
         s[Component::class.java] = arrayOf(
-            "addMouseListener" to MouseListener::class.java as Class<*>,
-            "addMouseWheelListener" to MouseWheelListener::class.java as Class<*>,
-            "addMouseMotionListener" to MouseMotionListener::class.java as Class<*>,
-            "addKeyListener" to KeyListener::class.java as Class<*>,
-                "addFocusListener" to FocusListener::class.java as Class<*>
-        )
+                "addMouseListener" to MouseListener::class.java as Class<*>,
+                "addMouseWheelListener" to MouseWheelListener::class.java as Class<*>,
+                "addMouseMotionListener" to MouseMotionListener::class.java as Class<*>,
+                "addKeyListener" to KeyListener::class.java as Class<*>,
+                "addFocusListener" to FocusListener::class.java as Class<*>)
     }
 
     // AbstractButton
@@ -53,6 +58,14 @@ fun HashMap<Class<out Component>, Array<Pair<String,Class<*>>>>.saveListToMap(){
     codeBlock {
         s[JList::class.java] = arrayOf("addListSelectionListener" to ListSelectionListener::class.java as Class<*>)
     }
+
+    // JTree
+    codeBlock {
+        s[JTree::class.java] = arrayOf(
+                "addTreeExpansionListener" to TreeExpansionListener::class.java as Class<*>,
+                "addTreeWillExpandListener" to TreeWillExpandListener::class.java as Class<*>,
+                "addTreeSelectionListener" to TreeSelectionListener::class.java as Class<*>)
+    }
 }
 
 inline fun codeBlock(code:()->Unit) = code.invoke()
@@ -62,7 +75,7 @@ fun main(args: Array<String>) {
 
     map.saveListToMap()
 
-    var src:File
+    val src:File
     var packageName = ""
 
     if (TOSRC){
@@ -71,18 +84,19 @@ fun main(args: Array<String>) {
         //error("我不放心 I do not believe it")
     }else{
         src = File("codeGenerate").apply {
+
             if (!exists()) mkdirs()
         }
     }
-
+    println("Output to \"${src.absolutePath}\"")
     map.forEach {
         entry->
         entry.value.forEach {
-            if (File(src,"_${it.second.simpleName}.kt").exists()){
+            if (!File(src,"_${it.second.simpleName}.kt").exists()){
                 val method = entry.key.getDeclaredMethod(it.first,it.second)
-                val eventClass = generateFile(it.second,entry.key,method,packageName)
+                val eventClass = generateFile(it.second, entry.key, method, packageName)
                 println(eventClass)
-                File(src,"_${it.second.simpleName}.kt").writeText(eventClass)
+                File(src,"_${it.second.simpleName}.kt").apply { if (!exists()) createNewFile() }.writeText(eventClass)
             }
 
         }

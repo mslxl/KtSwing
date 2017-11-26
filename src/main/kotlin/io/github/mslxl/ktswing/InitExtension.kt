@@ -2,26 +2,11 @@ package io.github.mslxl.ktswing
 
 import javafx.scene.control.RadioButton
 import java.awt.Component
+import java.awt.Container
+import java.util.*
 import javax.swing.*
+import javax.swing.tree.TreeNode
 
-interface Content {
-    fun add(comp: Component): Component
-}
-
-fun _createContent(onAdd: (comp: Component) -> Unit): Content {
-    return object : Content {
-        override fun add(comp: Component): Component {
-            onAdd.invoke(comp)
-            return comp;
-        }
-    }
-}
-
-inline fun <E : Component> __ktswing(comp: E, parent: Content, init: E.() -> Unit): E {
-    parent.add(comp)
-    init.invoke(comp)
-    return comp
-}
 
 inline fun Content.label(text: String = "", init: JLabel.() -> Unit) = __ktswing(JLabel(text), this, init)
 fun Content.label(text: String = "") = label(text) {}
@@ -99,5 +84,8 @@ fun Content.splitPane(newOrientation: Int = JSplitPane.HORIZONTAL_SPLIT,
                       newRightComponent: Component = JButton(UIManager.getString("SplitPane.rightButtonText"))) = splitPane(newOrientation, newContinuousLayout, newLeftComponent, newRightComponent) {}
 
 inline fun Content.tree(init:JTree.()->Unit)= __ktswing(JTree(),this,init)
+inline fun Content.tree(value:Array<Any>,init:JTree.()->Unit)= __ktswing(JTree(value),this,init)
+inline fun Content.tree(value:Vector<*>,init:JTree.()->Unit)= __ktswing(JTree(value),this,init)
+inline fun Content.tree(root: TreeNode, asksAllowsChildren:Boolean=false,init:JTree.()->Unit)= __ktswing(JTree(root,asksAllowsChildren),this,init)
 fun Content.tree()=tree(){}
 
