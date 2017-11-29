@@ -2,15 +2,19 @@ package io.github.mslxl.ktswing
 
 import java.awt.Component
 import java.awt.Container
+import javax.swing.JComponent
 import javax.swing.JFrame
 
 interface Content {
     fun onAddToContent(comp: Component)
 }
 
-inline fun <E : Component> __ktswing(comp: E, parent: Content, init: E.() -> Unit): E {
+inline fun <E : JComponent> __ktswing(comp: E, parent: Content, init: E.() -> Unit): E {
     parent.onAddToContent(comp)
     init.invoke(comp)
+    comp.repaint()
+    comp.validate()
+    comp.updateUI()
     return comp
 }
 

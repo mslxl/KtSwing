@@ -57,19 +57,19 @@ class _SplitPane(newOrientation: Int,
     val _left = _createContent { setLeftComponent(it) }
     val _right = _createContent { setRightComponent(it) }
     inline fun top(init:Content.()->Unit){
-        this.orientation = JSplitPane.VERTICAL_SPLIT
+        this.setOrientation(JSplitPane.VERTICAL_SPLIT)
         _left.apply(init)
     }
     inline fun bottom(init:Content.()->Unit){
-        this.orientation = JSplitPane.VERTICAL_SPLIT
+        this.setOrientation(JSplitPane.VERTICAL_SPLIT)
         _right.apply(init)
     }
     inline fun left(init:Content.()->Unit){
-        this.orientation = JSplitPane.HORIZONTAL_SPLIT
+        setOrientation(JSplitPane.HORIZONTAL_SPLIT)
         _left.apply(init)
     }
     inline fun right(init:Content.()->Unit){
-        this.orientation = JSplitPane.HORIZONTAL_SPLIT
+        this.setOrientation(JSplitPane.HORIZONTAL_SPLIT)
         _right.apply(init)
     }
 }
