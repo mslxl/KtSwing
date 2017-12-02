@@ -2,6 +2,7 @@ package io.github.mslxl.ktswing
 
 
 import java.awt.*
+import javax.swing.JComponent
 import javax.swing.JFrame
 import javax.swing.JRootPane
 import javax.swing.WindowConstants.*
@@ -11,14 +12,8 @@ open class KtSwingFrame :JFrame("KtSwing"),Content{
         this.layout = CardLayout()
     }
 
-    override fun onAddToContent(comp: Component){
-        if (comp is Container){
-            this.contentPane = comp
-        }else if(comp is JRootPane){
-            this.rootPane = comp
-        }else {
-            this.add(comp)
-        }
+    override fun onAddToContent(comp: JComponent){
+        this.contentPane = comp
     }
 
 }

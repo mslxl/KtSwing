@@ -8,7 +8,7 @@ open class BasePanel : JPanel()
 
 // FlowLayout
 class _FlowLayout : BasePanel(), Content {
-    override fun onAddToContent(comp: Component) {
+    override fun onAddToContent(comp: JComponent) {
         add(comp)
     }
 
@@ -63,7 +63,7 @@ inline fun Content.borderpanel(init: _BorderLayout.() -> Unit): JPanel = __ktswi
 
 // GridLayout
 class _GridLayout(rows: Int, cols: Int, hgap: Int, vgap: Int) : BasePanel(), Content {
-    override fun onAddToContent(comp: Component) {
+    override fun onAddToContent(comp: JComponent) {
         add(comp)
     }
 
@@ -106,7 +106,7 @@ inline fun Content.gridbagpanel(init: _GridBaglayout.() -> Unit): JPanel = __kts
 
 // BoxLayout
 class _BoxLayout(axis: AXIS) : BasePanel(), Content {
-    override fun onAddToContent(comp: Component) {
+    override fun onAddToContent(comp: JComponent) {
         add(comp)
     }
 
@@ -128,7 +128,7 @@ inline fun Content.boxpanel(axis: AXIS = AXIS.X_AXIS, init: _BoxLayout.() -> Uni
 
 // CardLayout
 class _CardLayout : BasePanel(), Content {
-    override fun onAddToContent(comp: Component){
+    override fun onAddToContent(comp: JComponent){
         add(comp)
     }
 

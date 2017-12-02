@@ -5,7 +5,7 @@ fun main(args: Array<String>) {
     frame {
         cardpanel {
             splitPane {
-                setOneTouchExpandable(true)
+                isOneTouchExpandable = true
                 left {
                     splitPane {
                         top {
@@ -39,5 +39,6 @@ fun main(args: Array<String>) {
                 }
             }
         }
+        showDebugWindows()
     }
 }

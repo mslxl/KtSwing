@@ -6,7 +6,7 @@ import javax.swing.JComponent
 import javax.swing.JFrame
 
 interface Content {
-    fun onAddToContent(comp: Component)
+    fun onAddToContent(comp: JComponent)
 }
 
 inline fun <E : JComponent> __ktswing(comp: E, parent: Content, init: E.() -> Unit): E {
@@ -34,10 +34,23 @@ inline fun <F : BasePanel> __ktswingPanel(panel: F, container: Container, init: 
     return panel
 }
 
-fun _createContent(onAdd: (comp: Component) -> Unit): Content {
+fun _createContent(onAdd: (comp: JComponent) -> Unit): Content {
     return object : Content {
-        override fun onAddToContent(comp: Component){
+        override fun onAddToContent(comp: JComponent){
             onAdd.invoke(comp)
         }
+    }
+}
+
+class UI(init:Content.()->Unit){
+    private var v:JComponent? = null
+    val view:JComponent get() = v!!
+    init {
+        _createContent {
+            if (v == null)
+                v = it
+            else
+                error("ui can only be one child")
+        }.apply(init)
     }
 }
