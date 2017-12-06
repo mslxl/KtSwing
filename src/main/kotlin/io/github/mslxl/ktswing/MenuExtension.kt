@@ -18,3 +18,16 @@ fun JMenu.radioButtonMenuItem(text: String,icon: Icon?=null)=radioButtonMenuItem
 
 val JMenu.separator:Unit
     get() = this.addSeparator()
+
+
+inline fun JPopupMenu.menuItem(text: String = "", init: JMenuItem.() -> Unit) = JMenuItem(text).apply { this@menuItem.add(this) }.apply(init)
+fun JPopupMenu.menuItem(text: String = "") = menuItem(text) {}
+
+inline fun JPopupMenu.checkBoxMenuItem(text: String = "", icon: Icon? = null, init: JCheckBoxMenuItem.() -> Unit) = JCheckBoxMenuItem(text, icon).apply { this@checkBoxMenuItem.add(this) }.apply(init)
+fun JPopupMenu.checkBoxMenuItem(text: String = "", icon: Icon? = null) = checkBoxMenuItem(text, icon) {}
+
+inline fun JPopupMenu.radioButtonMenuItem(text: String,icon: Icon?=null,init: JRadioButtonMenuItem.() -> Unit) = JRadioButtonMenuItem(text,icon).apply { this@radioButtonMenuItem.add(this) }.apply(init)
+fun JPopupMenu.radioButtonMenuItem(text: String,icon: Icon?=null)=radioButtonMenuItem(text, icon){}
+
+val JPopupMenu.separator:Unit
+    get() = this.addSeparator()

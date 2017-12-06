@@ -2,12 +2,16 @@ package io.github.mslxl.ktswing
 
 
 import java.awt.*
+import java.awt.event.ComponentListener
 import javax.swing.JComponent
+import javax.swing.JDialog
 import javax.swing.JFrame
 import javax.swing.JRootPane
 import javax.swing.WindowConstants.*
 
-open class KtSwingFrame :JFrame("KtSwing"),Content{
+
+open class KtSwingFrame(title: String="KtSwing") :JFrame(title),Content{
+    internal val cache = HashMap<String,Component>()
     init {
         this.layout = CardLayout()
     }
@@ -15,16 +19,32 @@ open class KtSwingFrame :JFrame("KtSwing"),Content{
     override fun onAddToContent(comp: JComponent){
         this.contentPane = comp
     }
-
 }
 
-inline fun frame(title:String="", frame: KtSwingFrame = KtSwingFrame(), init:KtSwingFrame.()->Unit):JFrame{
+open class KtSwingDialog (title: String="",owner:JFrame,modal:Boolean=false):JDialog(owner,title,modal),Content{
+    internal val cache = HashMap<String,Component>()
+    init {
+        this.layout = CardLayout()
+    }
+
+    override fun onAddToContent(comp: JComponent){
+        this.contentPane = comp
+    }
+}
+
+inline fun frame(title:String="", init:KtSwingFrame.()->Unit):JFrame{
+    val frame = KtSwingFrame()
     frame.title = title
     init(frame)
     frame.isVisible = true
     return frame
 }
 
+inline fun dialog(title: String,owner: JFrame,modal: Boolean = false,init: KtSwingDialog.() -> Unit):JDialog{
+    return KtSwingDialog(title,owner,modal).apply(init).apply {
+        isVisible = true
+    }
+}
 
 inline fun KtSwingFrame.size(code:Dimension.()->Unit){
     this.size = this.size.apply(code)

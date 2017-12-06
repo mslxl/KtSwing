@@ -26,6 +26,12 @@ fun <T> Component.findComponentByName(name:String):T?{
     while (root.parent!=null){
         root = root.parent
     }
+    val comp = when(root){
+        is KtSwingFrame->root.cache[name]
+        is KtSwingDialog->root.cache[name]
+        else -> null
+    }
+
     fun find(container: Container):Component?{
         val comps = container.components
         for (it in comps) {
@@ -41,5 +47,12 @@ fun <T> Component.findComponentByName(name:String):T?{
         return null
     }
 
-    return find(root as Container) as T
+    return if (comp != null) comp as T else (find(root as Container))?.apply {
+        when(root){
+            is KtSwingDialog->root.cache[name] = this
+            is KtSwingFrame->root.cache[name] = this
+
+        }
+    } as T
+
 }
