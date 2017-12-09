@@ -1,6 +1,9 @@
 *.iml
+*.test
 /.idea/
 /.gradle/
 /out/
 /build/
 /codeGenerate/
+/codeGenerate/build/
+/codeGenerate/out/
