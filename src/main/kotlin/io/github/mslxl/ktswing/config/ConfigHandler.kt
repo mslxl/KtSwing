@@ -1,12 +1,15 @@
 package io.github.mslxl.ktswing.config
 
 import com.google.gson.GsonBuilder
+import io.github.mslxl.ktswing.*
+import java.awt.Dimension
 import java.io.File
 import java.lang.reflect.InvocationHandler
 import java.lang.reflect.Method
 import java.lang.reflect.Proxy
-import java.text.DateFormat
 import java.util.*
+import javax.swing.JFrame
+import kotlin.collections.ArrayList
 import kotlin.concurrent.thread
 
 object ConfigHandler {
@@ -29,10 +32,7 @@ object ConfigHandler {
             }
 
             override fun invoke(proxy: Any, method: Method, args: Array<out Any>?): Any? {
-                val name = method.name.substring(3).toCharArray().run {
-                    this[0] = this[0].toLowerCase()
-                    String(this)
-                }
+                val name = method.name.substring(3).decapitalize()
                 if (method.name.startsWith("get")) {
                     if (!properties.containsKey(name)){
                         properties[name] = gson.toJson(null)
@@ -48,5 +48,36 @@ object ConfigHandler {
         return Proxy.newProxyInstance(iConfig.classLoader, arrayOf(iConfig), proxy) as T
     }
     fun <T : IConfig> newConfigInstance(iConfig: Class<T>, configFile: File, comments:String = "KtSwing config"): T = newConfigInstance(iConfig, configFile, comments){ _,_,_-> }
+
+
+    private fun <T : IConfig> showSettingWindow(iConfig: T,owner:JFrame?=null){
+        TODO("In development")
+        val clazz = iConfig.javaClass
+        val names = ArrayList<Pair<String,Class<*>>>()
+        clazz.methods.forEach {
+            if (it.name.startsWith("set")){
+                names.add(it.name.decapitalize() to it.returnType)
+            }
+        }
+        val ui = UI{
+            scrollPane {
+                table {
+
+                }
+            }
+        }
+        val dim = Dimension(400,450)
+        if (owner == null){
+            frame {
+                this include ui
+                size = dim
+            }
+        } else {
+            dialog("",owner,true){
+                this include ui
+                size = dim
+            }
+        }
+    }
 }
 

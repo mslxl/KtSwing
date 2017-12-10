@@ -2,16 +2,14 @@ package io.github.mslxl.ktswing
 
 
 import java.awt.*
-import java.awt.event.ComponentListener
 import javax.swing.JComponent
 import javax.swing.JDialog
 import javax.swing.JFrame
-import javax.swing.JRootPane
 import javax.swing.WindowConstants.*
 
 
 open class KtSwingFrame(title: String="KtSwing") :JFrame(title),Content{
-    internal val cache = HashMap<String,Component>()
+    val cache = HashMap<String,Component>()
     init {
         this.layout = CardLayout()
     }
@@ -22,7 +20,7 @@ open class KtSwingFrame(title: String="KtSwing") :JFrame(title),Content{
 }
 
 open class KtSwingDialog (title: String="",owner:JFrame,modal:Boolean=false):JDialog(owner,title,modal),Content{
-    internal val cache = HashMap<String,Component>()
+    val cache = HashMap<String,Component>()
     init {
         this.layout = CardLayout()
     }
@@ -46,23 +44,23 @@ inline fun dialog(title: String,owner: JFrame,modal: Boolean = false,init: KtSwi
     }
 }
 
-inline fun KtSwingFrame.size(code:Dimension.()->Unit){
+inline fun Window.size(code:Dimension.()->Unit){
     this.size = this.size.apply(code)
 }
 
-inline fun KtSwingFrame.bounds(code: Rectangle.() -> Unit){
+inline fun Window.bounds(code: Rectangle.() -> Unit){
     this.bounds = this.bounds.apply(code)
 }
 
-inline fun KtSwingFrame.maxSize(code: Dimension.() -> Unit){
+inline fun Window.maxSize(code: Dimension.() -> Unit){
     this.maximumSize = this.maximumSize.apply(code)
 }
 
-inline fun KtSwingFrame.minSize(code: Dimension.() -> Unit){
+inline fun Window.minSize(code: Dimension.() -> Unit){
     this.minimumSize = this.minimumSize.apply(code)
 }
 
-inline fun KtSwingFrame.maxBounds(code: Rectangle.() -> Unit){
+inline fun Frame.maxBounds(code: Rectangle.() -> Unit){
     this.maximizedBounds = this.maximizedBounds.apply(code)
 }
 

@@ -1,8 +1,6 @@
 package io.github.mslxl.ktswing
 
-import javafx.scene.control.RadioButton
 import java.awt.Component
-import java.awt.Container
 import java.util.*
 import javax.swing.*
 import javax.swing.tree.TreeNode
@@ -88,4 +86,6 @@ inline fun Content.tree(value:Array<Any>,init:JTree.()->Unit)= __ktswing(JTree(v
 inline fun Content.tree(value:Vector<*>,init:JTree.()->Unit)= __ktswing(JTree(value),this,init)
 inline fun Content.tree(root: TreeNode, asksAllowsChildren:Boolean=false,init:JTree.()->Unit)= __ktswing(JTree(root,asksAllowsChildren),this,init)
 fun Content.tree()=tree(){}
+
+inline fun Content.table(init:JTable.()->Unit) = __ktswing(JTable(),this,init)
 

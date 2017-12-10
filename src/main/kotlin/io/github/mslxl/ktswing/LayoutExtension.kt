@@ -1,7 +1,10 @@
 package io.github.mslxl.ktswing
 
 import java.awt.*
-import javax.swing.*
+import javax.swing.Box
+import javax.swing.BoxLayout
+import javax.swing.JComponent
+import javax.swing.JPanel
 
 open class BasePanel : JPanel()
 

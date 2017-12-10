@@ -3,13 +3,7 @@ package io.github.mslxl.ktswing.debug
 import io.github.mslxl.ktswing.*
 import io.github.mslxl.ktswing.event.treeSelectionListener
 import java.awt.*
-import java.util.*
-import javax.swing.JFrame
-import javax.swing.JSplitPane
-import javax.swing.event.TreeModelListener
 import javax.swing.tree.DefaultMutableTreeNode
-import javax.swing.tree.TreeModel
-import javax.swing.tree.TreePath
 
 fun Window.showDebugWindows() {
     Debug(this)
@@ -49,7 +43,7 @@ private class Debug(val debugWindow: Window) : KtSwingFrame() {
                 }
             }
         }
-
+        isVisible = true
     }
 
     fun getData(node: Component): DefaultMutableTreeNode {
