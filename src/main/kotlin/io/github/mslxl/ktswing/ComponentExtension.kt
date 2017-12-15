@@ -32,7 +32,7 @@ val Component.window:Component
         return comp
     }
 
-fun <T> Component.findComponentByName(name: String, useCache: Boolean = true, saveCache: Boolean = true): T? {
+fun <T> Component.findComponentByName(name: String, useCache: Boolean = true): T? {
 
     var root: Component? = this
     var last = this
@@ -89,15 +89,6 @@ fun <T> Component.findComponentByName(name: String, useCache: Boolean = true, sa
             root = root.parent
         } while (root != null)
 
-        // 保存缓存
-        if ((comp != null) and saveCache) {
-            with(window) {
-                when (this) {
-                    is KtSwingFrame -> cache[comp!!.name] = comp!!
-                    is KtSwingDialog -> cache[comp!!.name] = comp!!
-                }
-            }
-        }
 
     }
 

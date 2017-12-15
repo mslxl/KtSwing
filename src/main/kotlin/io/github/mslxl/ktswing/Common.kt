@@ -20,16 +20,11 @@ interface Content {
     }
 }
 
-inline fun <E : JComponent> __ktswing(comp: E, parent: Content, init: E.() -> Unit): E {
-    parent.onAddToContent(comp)
-    init.invoke(comp)
-    comp.repaint()
-    comp.validate()
-    comp.updateUI()
-
-    comp.addPropertyChangeListener("name", PropertyChangeListener {
+fun __ktswingCachePropertyChangeListener(comp: JComponent){
+    comp.addPropertyChangeListener("name", {
         val component = it.source as JComponent
         val top = component.window
+
         if (it.oldValue!=null){
             when (top) {
                 is KtSwingFrame -> top.cache.remove(it.oldValue.toString())
@@ -41,6 +36,15 @@ inline fun <E : JComponent> __ktswing(comp: E, parent: Content, init: E.() -> Un
             is KtSwingDialog -> top.cache[it.newValue.toString()] = component
         }
     })
+}
+
+inline fun <E : JComponent> __ktswing(comp: E, parent: Content, init: E.() -> Unit): E {
+    __ktswingCachePropertyChangeListener(comp)
+    parent.onAddToContent(comp)
+    init.invoke(comp)
+    comp.repaint()
+    comp.validate()
+    comp.updateUI()
 
     return comp
 }
@@ -101,7 +105,7 @@ class _UIContent(internal val init: _UIContent.() -> Unit) : Content {
             args.forEach {
                 arg->
                 map[arg.first]?.let {
-                    val component = ui._view!!.findComponentByName<JComponent>(it.first,false,false)!!
+                    val component = ui._view!!.findComponentByName<JComponent>(it.first,false)!!
                     it.second.invoke(arg.second,component,name)
                 }
             }
