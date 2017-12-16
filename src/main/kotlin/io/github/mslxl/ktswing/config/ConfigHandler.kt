@@ -35,7 +35,11 @@ object ConfigHandler {
                 val name = method.name.substring(3).decapitalize()
                 if (method.name.startsWith("get")) {
                     if (!properties.containsKey(name)){
-                        properties[name] = gson.toJson(null)
+                        if ((args!=null)and (args!!.isNotEmpty())){
+                            properties[name] = gson.toJson(args[0])
+                        }else{
+                            properties[name] = gson.toJson(null)
+                        }
                     }
                     return gson.fromJson(properties[name].toString(), method.returnType)
                 } else if (method.name.startsWith("set")) {
@@ -49,35 +53,5 @@ object ConfigHandler {
     }
     fun <T : IConfig> newConfigInstance(iConfig: Class<T>, configFile: File, comments:String = "KtSwing config"): T = newConfigInstance(iConfig, configFile, comments){ _,_,_-> }
 
-
-    private fun <T : IConfig> showSettingWindow(iConfig: T,owner:JFrame?=null){
-        TODO("In development")
-        val clazz = iConfig.javaClass
-        val names = ArrayList<Pair<String,Class<*>>>()
-        clazz.methods.forEach {
-            if (it.name.startsWith("set")){
-                names.add(it.name.decapitalize() to it.returnType)
-            }
-        }
-        val ui = UI{
-            scrollPane {
-                table {
-
-                }
-            }
-        }
-        val dim = Dimension(400,450)
-        if (owner == null){
-            frame {
-                this include ui
-                size = dim
-            }
-        } else {
-            dialog("",owner,true){
-                this include ui
-                size = dim
-            }
-        }
-    }
 }
 

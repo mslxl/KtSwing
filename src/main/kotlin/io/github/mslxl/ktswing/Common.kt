@@ -2,6 +2,7 @@ package io.github.mslxl.ktswing
 
 import java.awt.Component
 import java.awt.Container
+import java.beans.PropertyChangeEvent
 import java.beans.PropertyChangeListener
 import javax.swing.JComponent
 import javax.swing.JFrame
@@ -20,26 +21,28 @@ interface Content {
     }
 }
 
-fun __ktswingCachePropertyChangeListener(comp: JComponent){
-    comp.addPropertyChangeListener("name", {
-        val component = it.source as JComponent
-        val top = component.window
+object AutoCacheListener:PropertyChangeListener {
+    override fun propertyChange(it: PropertyChangeEvent) {
+        if (it.propertyName == "name"){
+            val component = it.source as JComponent
+            val top = component.window
 
-        if (it.oldValue!=null){
+            if (it.oldValue!=null){
+                when (top) {
+                    is KtSwingFrame -> top.cache.remove(it.oldValue.toString())
+                    is KtSwingDialog -> top.cache.remove(it.oldValue.toString())
+                }
+            }
             when (top) {
-                is KtSwingFrame -> top.cache.remove(it.oldValue.toString())
-                is KtSwingDialog -> top.cache.remove(it.oldValue.toString())
+                is KtSwingFrame -> top.cache[it.newValue.toString()] = component
+                is KtSwingDialog -> top.cache[it.newValue.toString()] = component
             }
         }
-        when (top) {
-            is KtSwingFrame -> top.cache[it.newValue.toString()] = component
-            is KtSwingDialog -> top.cache[it.newValue.toString()] = component
-        }
-    })
+    }
 }
 
 inline fun <E : JComponent> __ktswing(comp: E, parent: Content, init: E.() -> Unit): E {
-    __ktswingCachePropertyChangeListener(comp)
+    comp.addPropertyChangeListener(AutoCacheListener)
     parent.onAddToContent(comp)
     init.invoke(comp)
     comp.repaint()

@@ -3,6 +3,8 @@ package io.github.mslxl.ktswing
 import java.awt.Component
 import java.util.*
 import javax.swing.*
+import javax.swing.table.TableColumnModel
+import javax.swing.table.TableModel
 import javax.swing.tree.TreeNode
 
 
@@ -54,19 +56,22 @@ class _SplitPane(newOrientation: Int,
                  newRightComponent: Component) : JSplitPane(newOrientation, newContinuousLayout, newLeftComponent, newRightComponent) {
     val _left = _createContent { setLeftComponent(it) }
     val _right = _createContent { setRightComponent(it) }
-    inline fun top(init:Content.()->Unit){
+    inline fun top(init: Content.() -> Unit) {
         this.setOrientation(JSplitPane.VERTICAL_SPLIT)
         _left.apply(init)
     }
-    inline fun bottom(init:Content.()->Unit){
+
+    inline fun bottom(init: Content.() -> Unit) {
         this.setOrientation(JSplitPane.VERTICAL_SPLIT)
         _right.apply(init)
     }
-    inline fun left(init:Content.()->Unit){
+
+    inline fun left(init: Content.() -> Unit) {
         setOrientation(JSplitPane.HORIZONTAL_SPLIT)
         _left.apply(init)
     }
-    inline fun right(init:Content.()->Unit){
+
+    inline fun right(init: Content.() -> Unit) {
         this.setOrientation(JSplitPane.HORIZONTAL_SPLIT)
         _right.apply(init)
     }
@@ -75,17 +80,39 @@ class _SplitPane(newOrientation: Int,
 inline fun Content.splitPane(newOrientation: Int = JSplitPane.HORIZONTAL_SPLIT,
                              newContinuousLayout: Boolean = UIManager.getBoolean("SplitPane.continuousLayout"),
                              newLeftComponent: Component = JButton(UIManager.getString("SplitPane.leftButtonText")),
-                             newRightComponent: Component = JButton(UIManager.getString("SplitPane.rightButtonText")), init: _SplitPane.() -> Unit):JSplitPane = __ktswing(_SplitPane(newOrientation, newContinuousLayout, newLeftComponent, newRightComponent), this, init)
+                             newRightComponent: Component = JButton(UIManager.getString("SplitPane.rightButtonText")), init: _SplitPane.() -> Unit): JSplitPane = __ktswing(_SplitPane(newOrientation, newContinuousLayout, newLeftComponent, newRightComponent), this, init)
+
 fun Content.splitPane(newOrientation: Int = JSplitPane.HORIZONTAL_SPLIT,
                       newContinuousLayout: Boolean = UIManager.getBoolean("SplitPane.continuousLayout"),
                       newLeftComponent: Component = JButton(UIManager.getString("SplitPane.leftButtonText")),
                       newRightComponent: Component = JButton(UIManager.getString("SplitPane.rightButtonText"))) = splitPane(newOrientation, newContinuousLayout, newLeftComponent, newRightComponent) {}
 
-inline fun Content.tree(init:JTree.()->Unit)= __ktswing(JTree(),this,init)
-inline fun Content.tree(value:Array<Any>,init:JTree.()->Unit)= __ktswing(JTree(value),this,init)
-inline fun Content.tree(value:Vector<*>,init:JTree.()->Unit)= __ktswing(JTree(value),this,init)
-inline fun Content.tree(root: TreeNode, asksAllowsChildren:Boolean=false,init:JTree.()->Unit)= __ktswing(JTree(root,asksAllowsChildren),this,init)
-fun Content.tree()=tree(){}
+inline fun Content.tree(init: JTree.() -> Unit) = __ktswing(JTree(), this, init)
+inline fun Content.tree(value: Array<Any>, init: JTree.() -> Unit) = __ktswing(JTree(value), this, init)
+inline fun Content.tree(value: Vector<*>, init: JTree.() -> Unit) = __ktswing(JTree(value), this, init)
+inline fun Content.tree(root: TreeNode, asksAllowsChildren: Boolean = false, init: JTree.() -> Unit) = __ktswing(JTree(root, asksAllowsChildren), this, init)
+fun Content.tree() = tree() {}
 
-inline fun Content.table(init:JTable.()->Unit) = __ktswing(JTable(),this,init)
+inline fun Content.table(rowData: Array<Array<*>>, columnNames: Array<Array<*>>, init: JTable.() -> Unit) = __ktswing(JTable(rowData, columnNames), this, init)
+inline fun Content.table(rowData: Vector<*>, columnNames: Vector<*>, init: JTable.() -> Unit) = __ktswing(JTable(rowData, columnNames), this, init)
+inline fun Content.table(numRows: Int, numColumns: Int, init: JTable.() -> Unit) = __ktswing(JTable(numRows, numColumns), this, init)
+inline fun Content.table(dm: TableModel? = null, cm: TableColumnModel? = null, sm: ListSelectionModel? = null, init: JTable.() -> Unit) = __ktswing(JTable(dm, cm, sm), this, init)
 
+class _TabbedPane(tabPlacement: Int, tabLayoutPolicy: Int) : JTabbedPane(tabPlacement, tabLayoutPolicy) {
+
+    fun tab(name: String? = null, init: Content.() -> Unit) {
+        init.invoke(_createContent {
+            if (name == null) {
+                add(it)
+            } else {
+                add(name, it)
+            }
+        })
+    }
+}
+
+enum class TabPlacement { TOP, LEFT, BOTTOM, RIGHT }
+
+enum class TabLayoutPolicy { WRAP_TAB_LAYOUT, SCROLL_TAB_LAYOUT }
+
+inline fun Content.tabbedPane(tabPlacement: TabPlacement, tabLayoutPolicy: TabLayoutPolicy, init: _TabbedPane.() -> Unit) = __ktswing(_TabbedPane(tabPlacement.ordinal + 1, tabLayoutPolicy.ordinal + 1), this, init)

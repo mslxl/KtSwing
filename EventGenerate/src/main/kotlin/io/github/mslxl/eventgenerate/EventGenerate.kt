@@ -1,19 +1,16 @@
 package io.github.mslxl.eventgenerate
 
 import java.awt.Component
+import java.awt.Container
 import java.awt.Window
 import java.awt.event.*
+import java.beans.PropertyChangeListener
 import java.io.File
 import java.lang.reflect.Method
 import java.text.DateFormat
 import java.util.*
-import javax.swing.AbstractButton
-import javax.swing.JList
-import javax.swing.JTree
-import javax.swing.event.ListSelectionListener
-import javax.swing.event.TreeExpansionListener
-import javax.swing.event.TreeSelectionListener
-import javax.swing.event.TreeWillExpandListener
+import javax.swing.*
+import javax.swing.event.*
 
 // 此文件用于自动生成 Listener DSL
 
@@ -65,6 +62,28 @@ fun HashMap<Class<out Component>, Array<Pair<String,Class<*>>>>.saveListToMap(){
                 "addTreeExpansionListener" to TreeExpansionListener::class.java as Class<*>,
                 "addTreeWillExpandListener" to TreeWillExpandListener::class.java as Class<*>,
                 "addTreeSelectionListener" to TreeSelectionListener::class.java as Class<*>)
+    }
+
+    // Container
+    codeBlock {
+        s[Container::class.java] = arrayOf(
+                "addPropertyChangeListener" to PropertyChangeListener::class.java as Class<*>
+        )
+    }
+
+    // JComboBox
+    codeBlock {
+        s[JComboBox::class.java] = arrayOf(
+                "addItemListener" to ItemListener::class.java as Class<*>,
+                "addPopupMenuListener" to PopupMenuListener::class.java as Class<*>
+        )
+    }
+
+    // JTabbedPane
+    codeBlock {
+        s[JTabbedPane::class.java] = arrayOf(
+                "addChangeListener" to ChangeListener::class.java as Class<*>
+        )
     }
 }
 

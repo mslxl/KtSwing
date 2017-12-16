@@ -12,9 +12,10 @@ fun main(args: Array<String>) {
     configInstance.name = 20 to "Test"
     println(configInstance.name.first)
     configInstance.name = 10 to "Te"
-
+    print(configInstance.getN("a"))
 }
 
 interface Test:IConfig {
     var name:Pair<Int,String>
+    fun getN(def:String):String
 }
