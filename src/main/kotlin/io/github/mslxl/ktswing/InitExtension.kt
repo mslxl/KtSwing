@@ -27,7 +27,14 @@ fun Content.button(text: String = "", icon: Icon? = null) = button(text, icon) {
 inline fun <E> Content.list(init: JList<E>.() -> Unit) = __ktswing(JList<E>(), this, init)
 fun Content.list() = list<kotlin.Any>() {}
 
-inline fun Content.scrollPane(init: Content.() -> Unit) = _createContent { __ktswing(JScrollPane(it), this) {} }.apply(init)
+inline fun Content.scrollPane(init: Content.() -> Unit):JScrollPane{
+    var panel:JScrollPane? = null
+    _createContent {
+        panel=JScrollPane(it)
+        __ktswing(panel!!, this) {}
+    }.apply(init)
+    return panel!!
+}
 
 inline fun Content.checkBox(text: String = "", icon: Icon? = null, init: JCheckBox.() -> Unit) = __ktswing(JCheckBox(text, icon), this, init)
 fun Content.checkBox(text: String = "", icon: Icon? = null) = checkBox(text, icon) {}
