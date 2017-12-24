@@ -1,5 +1,5 @@
 package io.github.mslxl.ktswing.event
-// Generate by KtSwing in ( Nov 25, 2017 1:08:28 PM )
+// Generate by KtSwing in ( Dec 24, 2017 9:16:43 AM )
 
 class _KeyListener(val component:java.awt.Component){
 

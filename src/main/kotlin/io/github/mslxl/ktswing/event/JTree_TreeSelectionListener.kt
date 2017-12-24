@@ -1,6 +1,6 @@
 package io.github.mslxl.ktswing.event
 
-// Generate by KtSwing in ( Nov 26, 2017 2:19:20 PM )
+// Generate by KtSwing in ( Dec 24, 2017 9:16:43 AM )
 
 fun javax.swing.JTree.treeSelectionListener(init:(javax.swing.event.TreeSelectionEvent)->Unit){
     addTreeSelectionListener(object:javax.swing.event.TreeSelectionListener{

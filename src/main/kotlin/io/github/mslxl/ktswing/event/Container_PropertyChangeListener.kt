@@ -1,6 +1,6 @@
 package io.github.mslxl.ktswing.event
 
-// Generate by KtSwing in ( Dec 16, 2017 9:49:32 PM )
+// Generate by KtSwing in ( Dec 24, 2017 9:16:43 AM )
 
 fun java.awt.Container.propertyChangeListener(init:(java.beans.PropertyChangeEvent)->Unit){
     addPropertyChangeListener(object:java.beans.PropertyChangeListener{

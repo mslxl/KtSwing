@@ -48,7 +48,10 @@ fun HashMap<Class<out Component>, Array<Pair<String,Class<*>>>>.saveListToMap(){
 
     // AbstractButton
     codeBlock {
-        s[AbstractButton::class.java] = arrayOf("addActionListener" to ActionListener::class.java as Class<*>)
+        s[AbstractButton::class.java] = arrayOf(
+                "addActionListener" to ActionListener::class.java as Class<*>,
+                "addChangeListener" to ChangeListener::class.java as Class<*>
+        )
     }
 
     // JList
@@ -85,6 +88,7 @@ fun HashMap<Class<out Component>, Array<Pair<String,Class<*>>>>.saveListToMap(){
                 "addChangeListener" to ChangeListener::class.java as Class<*>
         )
     }
+
 }
 
 inline fun codeBlock(code:()->Unit) = code.invoke()
@@ -115,7 +119,7 @@ fun main(args: Array<String>) {
                 val method = entry.key.getDeclaredMethod(it.first,it.second)
                 val eventClass = generateFile(it.second, entry.key, method, packageName)
                 println(eventClass)
-                File(src,"_${it.second.simpleName}.kt").apply { if (!exists()) createNewFile() }.writeText(eventClass)
+                File(src,"${entry.key.simpleName}_${it.second.simpleName}.kt").apply { if (!exists()) createNewFile() }.writeText(eventClass)
             }
 
         }
@@ -128,7 +132,7 @@ private fun generateFile(clazz: Class<*>, who:Class<*>, addMethod:Method,package
 private fun generateCodeOne(clazz: Class<*>, who:Class<*>, addMethod:Method,packageName:String=""):String{
     val method = clazz.declaredMethods
 
-    val clazzString="""
+    return """
         ${
             if (packageName!="") "package $packageName" else ""
         }
@@ -151,12 +155,11 @@ private fun generateCodeOne(clazz: Class<*>, who:Class<*>, addMethod:Method,pack
             })
         }
     """.trimIndent()
-    return clazzString
 }
 
 private fun generateCode(clazz: Class<*>, who:Class<*>, addMethod:Method,packageName:String=""):String{
     val method = clazz.declaredMethods
-    val clazzString="""
+    return """
         ${
             if (packageName!="") "package $packageName" else ""
         }
@@ -211,7 +214,6 @@ private fun generateCode(clazz: Class<*>, who:Class<*>, addMethod:Method,package
         inline fun ${who.name}.${clazz.simpleName.firstCharLowerCase()}(init: _${clazz.simpleName}.()->Unit) = _${clazz.simpleName}(this).apply(init)
 
     """.trimIndent()
-    return clazzString
 }
 private fun Class<*>.hasTypeParameters() = typeParameters.isNotEmpty()
 private fun generateArgsList(method: Method):String{

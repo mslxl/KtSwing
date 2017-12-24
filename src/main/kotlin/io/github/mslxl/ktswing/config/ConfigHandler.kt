@@ -14,7 +14,7 @@ import kotlin.concurrent.thread
 
 object ConfigHandler {
     private val gson = GsonBuilder().serializeNulls().create()
-    fun <T : IConfig> newConfigInstance(iConfig: Class<T>, configFile: File, comments:String = "KtSwing config", onChange: (name: String, oldValue: Any?, newValue: Any) -> Unit): T {
+    fun <T : IConfig> newConfigInstance(iConfig: Class<T>, configFile: File,default:T, comments:String = "KtSwing config", onChange: (name: String, oldValue: Any?, newValue: Any) -> Unit): T {
         val proxy = object : InvocationHandler {
             val file: File = configFile
             val properties = Properties()
@@ -35,15 +35,15 @@ object ConfigHandler {
                 val name = method.name.substring(3).decapitalize()
                 if (method.name.startsWith("get")) {
                     if (!properties.containsKey(name)){
-                        if ((args!=null)and (args!!.isNotEmpty())){
+                        if ((args!=null)&& (args.isNotEmpty())){
                             properties[name] = gson.toJson(args[0])
                         }else{
-                            properties[name] = gson.toJson(null)
+                            properties[name] = gson.toJson(method.invoke(default))
                         }
                     }
                     return gson.fromJson(properties[name].toString(), method.returnType)
                 } else if (method.name.startsWith("set")) {
-                    onChange.invoke(name,gson.fromJson(properties[name].toString(), args!![0].javaClass),args!![0])
+                    onChange.invoke(name,gson.fromJson(properties[name].toString(), args!![0].javaClass), args[0])
                     properties[name] = gson.toJson(args[0])
                 }
                 return Unit
@@ -51,7 +51,7 @@ object ConfigHandler {
         }
         return Proxy.newProxyInstance(iConfig.classLoader, arrayOf(iConfig), proxy) as T
     }
-    fun <T : IConfig> newConfigInstance(iConfig: Class<T>, configFile: File, comments:String = "KtSwing config"): T = newConfigInstance(iConfig, configFile, comments){ _,_,_-> }
+    fun <T : IConfig> newConfigInstance(iConfig: Class<T>, configFile: File,default:T, comments:String = "KtSwing config"): T = newConfigInstance(iConfig, configFile,default, comments){ _,_,_-> }
 
 }
 
