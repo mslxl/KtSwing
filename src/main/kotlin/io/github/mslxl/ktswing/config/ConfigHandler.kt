@@ -1,15 +1,11 @@
 package io.github.mslxl.ktswing.config
 
 import com.google.gson.GsonBuilder
-import io.github.mslxl.ktswing.*
-import java.awt.Dimension
 import java.io.File
 import java.lang.reflect.InvocationHandler
 import java.lang.reflect.Method
 import java.lang.reflect.Proxy
 import java.util.*
-import javax.swing.JFrame
-import kotlin.collections.ArrayList
 import kotlin.concurrent.thread
 
 object ConfigHandler {
@@ -32,22 +28,49 @@ object ConfigHandler {
             }
 
             override fun invoke(proxy: Any, method: Method, args: Array<out Any>?): Any? {
-                val name = method.name.substring(3).decapitalize()
-                if (method.name.startsWith("get")) {
-                    if (!properties.containsKey(name)){
-                        if ((args!=null)&& (args.isNotEmpty())){
-                            properties[name] = gson.toJson(args[0])
-                        }else{
-                            properties[name] = gson.toJson(method.invoke(default))
+                val key = method.name.substring(3).decapitalize()
+
+                when {
+                    method.name == "getKeys" -> return properties.keys.run {
+                        val array = Array(size){"need init"}
+                        this.forEachIndexed { index, any ->
+                            array[index] = any.toString()
                         }
+                        return@run array
                     }
-                    return gson.fromJson(properties[name].toString(), method.returnType)
-                } else if (method.name.startsWith("set")) {
-                    onChange.invoke(name,gson.fromJson(properties[name].toString(), args!![0].javaClass), args[0])
-                    properties[name] = gson.toJson(args[0])
+
+                    method.name == "get" -> return getConfigValue(args!![0].toString(),Any::class.java){
+                        return@getConfigValue null
+                    }
+                    method.name == "set" -> {
+                        setConfigValue(args!![0].toString(),args[1])
+                        return Unit
+                    }
+
+                    method.name.startsWith("get") -> return getConfigValue(key,method.returnType){
+                        return@getConfigValue if ((args!=null)&& (args.isNotEmpty())) args[0] else method.invoke(default)
+                    }
+                    method.name.startsWith("set") -> {
+                        onChange.invoke(key,gson.fromJson(properties[key].toString(), args!![0].javaClass), args[0])
+                        setConfigValue(key,args[0])
+                        return Unit
+                    }
+                    else -> return Unit
                 }
-                return Unit
+
             }
+
+            inline private fun <T:Any?> getConfigValue(key:String,ret:Class<T>,def:()->Any?):T?{
+                if (!properties.containsKey(key)){
+                    properties[key] = def.invoke()
+                }
+                return gson.fromJson(properties[key].toString(), ret)
+            }
+
+            private fun setConfigValue(key:String,value:Any?){
+                properties[key] = gson.toJson(value)
+            }
+
         }
         return Proxy.newProxyInstance(iConfig.classLoader, arrayOf(iConfig), proxy) as T
     }

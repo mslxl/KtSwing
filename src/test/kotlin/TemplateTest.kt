@@ -1,5 +1,4 @@
 import io.github.mslxl.ktswing.*
-import io.github.mslxl.ktswing.debug.showDebugWindows
 import io.github.mslxl.ktswing.event.actionListener
 import java.awt.GridBagConstraints
 import java.awt.Insets
@@ -60,7 +59,6 @@ fun main(args: Array<String>) {
             this include template.createJComponent("さんばんめ","labelText" to "Enter text:","buttonNumber" to 3)
         }
 
-        showDebugWindows()
         pack()
     }
 }

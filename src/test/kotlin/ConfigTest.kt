@@ -20,12 +20,19 @@ fun main(args: Array<String>) {
         println("$name: $oldValue --> $newValue")
     }
     println(configInstance.name.first)
-
+    configInstance["a"] = "TestAAAAAAAA"
+    println(configInstance["a"])
     configInstance.name = 20 to "Test"
     println(configInstance.name.first)
     configInstance.name = 10 to "Te"
     println(configInstance.getN("a"))
     println(configInstance.defaultTest)
+
+    println()
+    println()
+    configInstance.keys.forEach {
+        print("$it |")
+    }
 }
 
 interface Test:IConfig {

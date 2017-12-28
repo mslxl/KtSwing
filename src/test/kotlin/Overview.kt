@@ -1,5 +1,5 @@
 import io.github.mslxl.ktswing.*
-import io.github.mslxl.ktswing.debug.showDebugWindows
+
 import io.github.mslxl.ktswing.event.actionListener
 import javax.swing.SwingConstants.CENTER
 
@@ -48,6 +48,5 @@ fun main(args: Array<String>) {
                 }
             }
         }
-        showDebugWindows()
     }
 }

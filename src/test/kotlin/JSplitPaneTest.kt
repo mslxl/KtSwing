@@ -1,5 +1,4 @@
 import io.github.mslxl.ktswing.*
-import io.github.mslxl.ktswing.debug.showDebugWindows
 
 fun main(args: Array<String>) {
     frame {
@@ -39,6 +38,6 @@ fun main(args: Array<String>) {
                 }
             }
         }
-        showDebugWindows()
+
     }
 }
