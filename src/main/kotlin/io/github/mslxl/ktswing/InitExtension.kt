@@ -1,10 +1,12 @@
 package io.github.mslxl.ktswing
 
 import java.awt.Component
+import java.net.URL
 import java.util.*
 import javax.swing.*
 import javax.swing.table.TableColumnModel
 import javax.swing.table.TableModel
+import javax.swing.text.StyledDocument
 import javax.swing.tree.TreeNode
 
 
@@ -123,3 +125,11 @@ enum class TabPlacement { TOP, LEFT, BOTTOM, RIGHT }
 enum class TabLayoutPolicy { WRAP_TAB_LAYOUT, SCROLL_TAB_LAYOUT }
 
 inline fun Content.tabbedPane(tabPlacement: TabPlacement, tabLayoutPolicy: TabLayoutPolicy, init: _TabbedPane.() -> Unit) = __ktswing(_TabbedPane(tabPlacement.ordinal + 1, tabLayoutPolicy.ordinal + 1), this, init)
+
+inline fun Content.textPane(init:JTextPane.()->Unit)= __ktswing(JTextPane(),this,init)
+inline fun Content.textPane(styledDocument: StyledDocument, init:JTextPane.()->Unit)= __ktswing(JTextPane(styledDocument),this,init)
+
+inline fun Content.editorPane(init:JEditorPane.()->Unit)= __ktswing(JEditorPane(),this,init)
+inline fun Content.editorPane(initialPage: URL, init:JEditorPane.()->Unit)= __ktswing(JEditorPane(initialPage),this,init)
+inline fun Content.editorPane(url:String,init:JEditorPane.()->Unit)= __ktswing(JEditorPane(url),this,init)
+inline fun Content.editorPane(type:String,text: String ,init:JEditorPane.()->Unit)= __ktswing(JEditorPane(type, text),this,init)
