@@ -5,5 +5,5 @@ interface IConfig {
         get() = arrayOf()
 
     operator fun get(key:String):Any? = null
-    operator fun set(key: String,value:String):Any? = null
+    operator fun set(key: String,value:Any):Any? = null
 }
