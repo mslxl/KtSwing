@@ -1,12 +1,15 @@
 package io.github.mslxl.ktswing
 
-import java.awt.Component
 import java.awt.Container
 import java.beans.PropertyChangeEvent
 import java.beans.PropertyChangeListener
 import javax.swing.JComponent
 import javax.swing.JFrame
 
+@DslMarker
+annotation class KtDSL
+
+@KtDSL
 interface Content {
     fun onAddToContent(comp: JComponent)
 
@@ -128,7 +131,7 @@ class _UIContent(internal val init: _UIContent.() -> Unit) : Content {
         }
     }
 }
-
+@KtDSL
 class UI(init: _UIContent.() -> Unit) {
     val _content = _UIContent(init)
     val view: JComponent get() = _content._view!!

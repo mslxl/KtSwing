@@ -7,7 +7,7 @@ import javax.swing.JDialog
 import javax.swing.JFrame
 import javax.swing.WindowConstants.*
 
-
+@KtDSL
 open class KtSwingFrame(title: String="KtSwing") :JFrame(title),Content{
     val cache = HashMap<String,Component>()
     init {
@@ -18,7 +18,7 @@ open class KtSwingFrame(title: String="KtSwing") :JFrame(title),Content{
         this.contentPane = comp
     }
 }
-
+@KtDSL
 open class KtSwingDialog (title: String="",owner:JFrame,modal:Boolean=false):JDialog(owner,title,modal),Content{
     val cache = HashMap<String,Component>()
     init {
@@ -29,7 +29,7 @@ open class KtSwingDialog (title: String="",owner:JFrame,modal:Boolean=false):JDi
         this.contentPane = comp
     }
 }
-
+@KtDSL
 inline fun frame(title:String="", init:KtSwingFrame.()->Unit):JFrame{
     val frame = KtSwingFrame()
     frame.title = title
@@ -37,7 +37,7 @@ inline fun frame(title:String="", init:KtSwingFrame.()->Unit):JFrame{
     frame.isVisible = true
     return frame
 }
-
+@KtDSL
 inline fun dialog(title: String,owner: JFrame,modal: Boolean = false,init: KtSwingDialog.() -> Unit):JDialog{
     return KtSwingDialog(title,owner,modal).apply(init).apply {
         isVisible = true

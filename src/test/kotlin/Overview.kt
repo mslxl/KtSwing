@@ -1,10 +1,12 @@
 import io.github.mslxl.ktswing.*
 
 import io.github.mslxl.ktswing.event.actionListener
+import javax.swing.JFrame
 import javax.swing.SwingConstants.CENTER
 
+lateinit var frame:JFrame
 fun main(args: Array<String>) {
-    frame("Notepad") {
+    frame = frame("Notepad") {
         exitOnClose
         resizable
         size {
@@ -42,7 +44,7 @@ fun main(args: Array<String>) {
                     name = "flow"
                     button("Ok"){
                         actionListener {
-                            dispose()
+                            frame.dispose()
                         }
                     }
                 }
