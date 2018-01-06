@@ -1,5 +1,13 @@
-import io.github.mslxl.ktswing.*
+import io.github.mslxl.ktswing.UI
+import io.github.mslxl.ktswing.component.button
+import io.github.mslxl.ktswing.component.findComponentByName
+import io.github.mslxl.ktswing.component.label
+import io.github.mslxl.ktswing.component.textfield
 import io.github.mslxl.ktswing.event.actionListener
+import io.github.mslxl.ktswing.exitOnClose
+import io.github.mslxl.ktswing.frame
+import io.github.mslxl.ktswing.layout.gridbagpanel
+import io.github.mslxl.ktswing.layout.gridlayout
 import java.awt.GridBagConstraints
 import java.awt.Insets
 import javax.swing.*
@@ -23,7 +31,7 @@ fun main(args: Array<String>) {
                 }
             }
             constraints(18, 0, 2, insets = insets) {
-                button(){
+                button {
                     name = "button"
                     actionListener {
                         JOptionPane.showMessageDialog(this,this.name+"\n\nAnd you was input:${findComponentByName<JTextField>("textfield")!!.text}")
@@ -42,7 +50,7 @@ fun main(args: Array<String>) {
         }
 
         key("buttonNumber","button"){
-            value, comp,prefix ->
+            value, comp, _ ->
             if (comp is JButton){
                 comp.text = "Click me to show my name ($value)"
             }
@@ -50,13 +58,20 @@ fun main(args: Array<String>) {
 
     }
 
-
     frame {
         exitOnClose
-        gridlayout(0,1,5,5){
-            this include template.createJComponent("first","labelText" to "Enter text:","buttonNumber" to 1)
-            this include template.createJComponent("第二组","labelText" to "Enter text:","buttonNumber" to 2)
-            this include template.createJComponent("さんばんめ","labelText" to "Enter text:","buttonNumber" to 3)
+        gridlayout {
+            row {
+                this include template.createJComponent("first","labelText" to "Enter text:","buttonNumber" to 1)
+            }
+            row {
+                this include template.createJComponent("第二组","labelText" to "Enter text:","buttonNumber" to 2)
+            }
+            row {
+                this include template.createJComponent("さんばんめ","labelText" to "Enter text:","buttonNumber" to 3)
+                this include template.createJComponent("さんばんめ","labelText" to "Enter text:","buttonNumber" to 4)
+
+            }
         }
 
         pack()

@@ -4,6 +4,9 @@ import java.io.File
 
 fun main(args: Array<String>) {
     val default = object :Test{
+        override var booleanTest: Boolean
+            get() = true
+            set(value) = Unit
         override var defaultTest: Int
             get() = 3
             set(value) = Unit
@@ -19,19 +22,12 @@ fun main(args: Array<String>) {
         name, oldValue, newValue ->
         println("$name: $oldValue --> $newValue")
     }
-    println(configInstance.name.first)
-    configInstance["a"] = "TestAAAAAAAA"
-    println(configInstance["a"])
-    configInstance.name = 20 to "Test"
-    println(configInstance.name.first)
-    configInstance.name = 10 to "Te"
-    println(configInstance.getN("a"))
-    println(configInstance.defaultTest)
 
+    configInstance.booleanTest = false
     println()
     println()
     configInstance.keys.forEach {
-        print("$it |")
+        println("$it -> ${configInstance[it]}")
     }
 }
 
@@ -39,4 +35,5 @@ interface Test:IConfig {
     var name:Pair<Int,String>
     fun getN(def:String):String
     var defaultTest:Int
+    var booleanTest:Boolean
 }

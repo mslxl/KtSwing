@@ -29,35 +29,42 @@ object ConfigHandler {
 
             override fun invoke(proxy: Any, method: Method, args: Array<out Any>?): Any? {
                 val key = method.name.substring(3).decapitalize()
-
-                when {
-                    method.name == "getKeys" -> return properties.keys.run {
-                        val array = Array(size){"need init"}
-                        this.forEachIndexed { index, any ->
-                            array[index] = any.toString()
+                var valueIndex = 0
+                try {
+                    when {
+                        method.name == "getKeys" -> return properties.keys.run {
+                            val array = Array(size){"need init"}
+                            this.forEachIndexed { index, any ->
+                                array[index] = any.toString()
+                            }
+                            return@run array
                         }
-                        return@run array
-                    }
 
-                    method.name == "get" -> return getConfigValue(args!![0].toString(),Any::class.java){
-                        return@getConfigValue null
-                    }
-                    method.name == "set" -> {
-                        setConfigValue(args!![0].toString(),args[1])
-                        return Unit
-                    }
+                        method.name == "get" -> return getConfigValue(args!![0].toString(),Any::class.java){
+                            valueIndex = 1
+                            return@getConfigValue null
+                        }
+                        method.name == "set" -> {
+                            valueIndex = 1
+                            setConfigValue(args!![0].toString(),args[1])
+                            return Unit
+                        }
 
-                    method.name.startsWith("get") -> return getConfigValue(key,method.returnType){
-                        return@getConfigValue if ((args!=null)&& (args.isNotEmpty())) args[0] else method.invoke(default)
+                        method.name.startsWith("get") -> return getConfigValue(key,method.returnType){
+                            valueIndex = 0
+                            return@getConfigValue if (args!=null && args.isNotEmpty()) args[0] else method.invoke(default)
+                        }
+                        method.name.startsWith("set") -> {
+                            valueIndex = 0
+                            onChange.invoke(key,gson.fromJson(properties[key].toString(), args!![0].javaClass), args[0])
+                            setConfigValue(key,args[0])
+                            return Unit
+                        }
+                        else -> return Unit
                     }
-                    method.name.startsWith("set") -> {
-                        onChange.invoke(key,gson.fromJson(properties[key].toString(), args!![0].javaClass), args[0])
-                        setConfigValue(key,args[0])
-                        return Unit
-                    }
-                    else -> return Unit
+                }catch (e:Exception){
+                    throw RuntimeException("KtSwing Error! Type is ${args!![valueIndex].javaClass.name}}",e)
                 }
-
             }
 
             inline private fun <T:Any?> getConfigValue(key:String,ret:Class<T>,def:()->Any?):T?{

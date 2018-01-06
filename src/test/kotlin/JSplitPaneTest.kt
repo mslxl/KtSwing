@@ -1,4 +1,7 @@
-import io.github.mslxl.ktswing.*
+import io.github.mslxl.ktswing.component.*
+import io.github.mslxl.ktswing.frame
+import io.github.mslxl.ktswing.layout.borderpanel
+import io.github.mslxl.ktswing.layout.cardpanel
 
 fun main(args: Array<String>) {
     frame {

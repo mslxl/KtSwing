@@ -1,6 +1,12 @@
 import io.github.mslxl.ktswing.*
+import io.github.mslxl.ktswing.component.button
+import io.github.mslxl.ktswing.component.label
+import io.github.mslxl.ktswing.component.scrollPane
+import io.github.mslxl.ktswing.component.textarea
 
 import io.github.mslxl.ktswing.event.actionListener
+import io.github.mslxl.ktswing.layout.borderpanel
+import io.github.mslxl.ktswing.layout.flowpanel
 import javax.swing.JFrame
 import javax.swing.SwingConstants.CENTER
 
@@ -16,7 +22,6 @@ fun main(args: Array<String>) {
         menubar {
             menu("File"){
                 menuItem("Open")
-                separator
                 menuItem("Save")
                 separator
                 menuItem("Exit")
@@ -25,6 +30,7 @@ fun main(args: Array<String>) {
                 menuItem("Font")
             }
         }
+
         borderpanel {
             north {
                 label("File not open"){

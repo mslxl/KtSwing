@@ -1,5 +1,8 @@
-package io.github.mslxl.ktswing
+package io.github.mslxl.ktswing.component
 
+import io.github.mslxl.ktswing.Content
+import io.github.mslxl.ktswing.__ktswing
+import io.github.mslxl.ktswing._createContent
 import java.awt.Component
 import java.net.URL
 import java.util.*
