@@ -69,7 +69,7 @@ object ConfigHandler {
 
             inline private fun <T:Any?> getConfigValue(key:String,ret:Class<T>,def:()->Any?):T?{
                 if (!properties.containsKey(key)){
-                    properties[key] = def.invoke()
+                    setConfigValue(key,def.invoke())
                 }
                 return gson.fromJson(properties[key].toString(), ret)
             }

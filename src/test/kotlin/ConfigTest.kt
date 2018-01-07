@@ -23,9 +23,9 @@ fun main(args: Array<String>) {
         println("$name: $oldValue --> $newValue")
     }
 
-    configInstance.booleanTest = false
     println()
     println()
+    println(configInstance.booleanTest)
     configInstance.keys.forEach {
         println("$it -> ${configInstance[it]}")
     }
