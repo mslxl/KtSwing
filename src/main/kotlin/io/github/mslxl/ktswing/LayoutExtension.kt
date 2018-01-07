@@ -204,17 +204,12 @@ class _CardLayout : BasePanel(), Content {
 
 inline fun Content.cardpanel(init: _CardLayout.() -> Unit): JPanel = __ktswing(_CardLayout(), this, init)
 
-class _AabsoluteLayout : BasePanel() {
-    val _addMethod = _createContent {
-        this.add(it)
+class _AabsoluteLayout : BasePanel(),Content {
+    override fun onAddToContent(comp: JComponent) {
+        this.add(comp)
     }
-
     init {
         layout = null
-    }
-
-    inline fun at(init: Content.() -> Unit) {
-        _addMethod.apply(init)
     }
 }
 

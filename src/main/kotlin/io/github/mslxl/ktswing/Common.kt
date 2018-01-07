@@ -121,7 +121,7 @@ inline fun <F : BasePanel> __ktswingPanel(panel: F, container: Container, init: 
  * 创建一个 [Content] 对象并返回它
  * 然而并没有什么 ~~~卯月~~~ (卵用)
  */
-fun _createContent(onAdd: (comp: JComponent) -> Unit): Content {
+inline fun _createContent(crossinline onAdd: (comp: JComponent) -> Unit): Content {
     return object : Content {
         override fun onAddToContent(comp: JComponent) {
             onAdd.invoke(comp)

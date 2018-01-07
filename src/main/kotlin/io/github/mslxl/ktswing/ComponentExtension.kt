@@ -44,7 +44,7 @@ inline fun JComponent.minSize(code: Dimension.() -> Unit) {
  * Get component's window from this component
  * 获取该 Component 的 Window
  */
-val Component.window:Component
+val Component.window: Component
     get() {
         var comp = this
         while (comp.parent != null) {
@@ -61,29 +61,26 @@ val Component.window:Component
  * @param useCache Need try to find [T] in cache 是否在缓存中寻找 [T]
  */
 fun <T> Component.findComponentByName(name: String, useCache: Boolean = true): T? {
-
     var root: Component? = this
     var last = this
-
     fun find(container: Container): Component? {
         val comps = container.components
-        comps.filter { it -> (it != last) and (it.name != null) }
-                .forEach { it ->
-                    if ((it.name == name) or (it.name.substring(it.name.indexOf(':') + 1) == name)) {
-                        return it
-                    } else if (it is Container) {
-
-                        val result = find(it)
-                        if (result != null) {
-                            return result
-                        }
-                    }
+        comps.forEach { it ->
+            if (it.name != null && it != last) {
+                if ((it.name == name) || (it.name.substring(it.name.indexOf(':') + 1) == name)) {
+                    return it
                 }
+            } else if (it is Container) {
+                val result = find(it)
+                if (result != null) {
+                    return result
+                }
+            }
+        }
         return null
     }
 
     val window = this.window
-
     // 读取缓存
     var comp = with(window) {
         if (useCache)
@@ -94,7 +91,6 @@ fun <T> Component.findComponentByName(name: String, useCache: Boolean = true): T
             }
         else null
     }
-
     // 没有缓存就去找
     if (comp == null) {
         do {
@@ -104,22 +100,15 @@ fun <T> Component.findComponentByName(name: String, useCache: Boolean = true): T
                     break
                 }
             }
-
             if (root is Container) {
-
                 comp = find(root)
                 if (comp != null) {
                     break
                 }
             }
-
             last = root
             root = root.parent
         } while (root != null)
-
-
     }
-
     return comp as T
-
 }

@@ -56,5 +56,8 @@ fun main(args: Array<String>) {
                 }
             }
         }
+        cache.forEach { t, u ->
+            println(t)
+        }
     }
 }
