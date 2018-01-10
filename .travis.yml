@@ -24,9 +24,9 @@ deploy:
   provider: releases
   api_key:
     secure: RxJFHRWgktn72w3HIMKNI8DQFzaGcT58iom3ljnGaa7abolLmlBi8ODaDkajWp5Vz1FzbjfaecFtM5FXVknWfA1o67iZGABx1UgxLd6vgTxDLxylVQAzrqwnZ1cGYmj0jZiRwrm6ztIDCn19pE250byjBOACTUHyF2dHG1xcahsSruce3hs5XTOA5fr9L5kDVYlt5AE0CysqYWfGEBLaYYZTnTM8lcrKUoS9VC8LnI3vT/+DGZ7W6hwefQ0osSTEaqkoK6x1vnuScxBRHZAvckZ8rqPZgoPD2jFkM8gCu1XKybdg8a5mluwRUu2FTtPoYqjA5Je7N2795ZSKX5kpZD6hJ/bL2yof1X0ry4jJwSU/mj9h/NTXcaxSyLwEpMK5odJ8kM0UfwkrYMXQM2stLh0+W3FGxDHnD6EsofAwO1wMfMiuSQakosEWXpWCWHCFkDaWxSdAvLD0KzxBCnKQl7GRMYt27Bl5xeStgrXmPdQpauHZHyhNixPrreGWAEdsX7Xf7PsZmQ1Dk1iOMANmIcnMjCp8dekCr7YylUPu8AhdfmRJ+Os6M0ftCFIqjUAJ2DNOYHAib/WjJY2uHDHdsx8JI5AHcCBk8c+XjOg2TgJKHKP3ZbRAQGzhHQY5OQoNJxxR0J8BEcdI+YZLeJpQVvw9iwLX1OpNKdl1HzAeowE=
-  file: build/libs/KtSwing-*.jar
+  file: build/libs/Kt*.jar
   file_glob: true
   skip_cleanup: true
   on:
     tags: true
-    repo: mslxl/KtSwing
+    repo: mslxl/KtGUI
