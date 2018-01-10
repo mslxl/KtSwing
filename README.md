@@ -6,13 +6,13 @@ This is a DSL system for Swing.
 
 **Poor performance, cautious.**
 
-[![](https://jitpack.io/v/mslxl/KtSwing.svg)](https://jitpack.io/#mslxl/KtSwing)
+[![](https://jitpack.io/v/mslxl/KtGUI.svg)](https://jitpack.io/#mslxl/KtGUI)
 
-[![](https://travis-ci.org/mslxl/KtSwing.svg?branch=master)](https://travis-ci.org/mslxl/KtSwing/)
+[![](https://travis-ci.org/mslxl/KtGUI.svg?branch=master)](https://travis-ci.org/mslxl/KtGUI/)
 
 See [Overview](src/test/kotlin/Overview.kt) for more information.
 
-Do not access functions, variables, and constants that begin with `_` and `__`, starting with `_` and `__` just for `inline`.
+Do not access functions, variables, and constants that begin with `_`, starting with `_`  just for `inline`.
 
 I'm very sorry for my poor English, so please Chinese API document shall prevail (If you know Chinese).
 
