@@ -1,12 +1,11 @@
-import io.github.mslxl.ktswing.*
-import io.github.mslxl.ktswing.component.button
-import io.github.mslxl.ktswing.component.label
-import io.github.mslxl.ktswing.component.scrollPane
-import io.github.mslxl.ktswing.component.textarea
-
-import io.github.mslxl.ktswing.event.actionListener
-import io.github.mslxl.ktswing.layout.borderpanel
-import io.github.mslxl.ktswing.layout.flowpanel
+import io.github.mslxl.ktgui.ktswing.component.*
+import io.github.mslxl.ktgui.ktswing.event.actionListener
+import io.github.mslxl.ktgui.ktswing.exitOnClose
+import io.github.mslxl.ktgui.ktswing.frame
+import io.github.mslxl.ktgui.ktswing.layout.borderpanel
+import io.github.mslxl.ktgui.ktswing.layout.flowpanel
+import io.github.mslxl.ktgui.ktswing.resizable
+import io.github.mslxl.ktgui.ktswing.size
 import javax.swing.JFrame
 import javax.swing.SwingConstants.CENTER
 
@@ -55,9 +54,6 @@ fun main(args: Array<String>) {
                     }
                 }
             }
-        }
-        cache.forEach { t, u ->
-            println(t)
         }
     }
 }

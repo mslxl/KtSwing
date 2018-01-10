@@ -1,5 +1,5 @@
-import io.github.mslxl.ktswing.config.ConfigHandler
-import io.github.mslxl.ktswing.config.IConfig
+import io.github.mslxl.ktcfg.ConfigHandler
+import io.github.mslxl.ktcfg.IConfig
 import java.io.File
 
 fun main(args: Array<String>) {
@@ -31,7 +31,7 @@ fun main(args: Array<String>) {
     }
 }
 
-interface Test:IConfig {
+interface Test: IConfig {
     var name:Pair<Int,String>
     fun getN(def:String):String
     var defaultTest:Int
