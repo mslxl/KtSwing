@@ -1,15 +1,22 @@
+import io.github.mslxl.ktgui.ktswing.*
 import io.github.mslxl.ktgui.ktswing.component.*
 import io.github.mslxl.ktgui.ktswing.event.actionListener
-import io.github.mslxl.ktgui.ktswing.exitOnClose
-import io.github.mslxl.ktgui.ktswing.frame
 import io.github.mslxl.ktgui.ktswing.layout.borderpanel
 import io.github.mslxl.ktgui.ktswing.layout.flowpanel
-import io.github.mslxl.ktgui.ktswing.resizable
-import io.github.mslxl.ktgui.ktswing.size
 import javax.swing.JFrame
 import javax.swing.SwingConstants.CENTER
 
 lateinit var frame:JFrame
+
+class Hello:KtSwingFrame(){
+    init {
+
+        label("hello,world")
+        pack()
+        isVisible = true
+    }
+}
+
 fun main(args: Array<String>) {
     frame = frame("Notepad") {
         exitOnClose

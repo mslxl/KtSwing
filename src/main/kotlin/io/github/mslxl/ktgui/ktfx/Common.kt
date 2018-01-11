@@ -2,6 +2,7 @@ package io.github.mslxl.ktgui.ktfx
 
 import io.github.mslxl.ktgui.common.KtDSL
 import io.github.mslxl.ktgui.common.PanelNode
+import javafx.event.EventTarget
 import javafx.scene.Group
 import javafx.scene.Node
 import javafx.scene.Parent
@@ -13,9 +14,14 @@ interface FxPanelNode: FxPanelNodePanel
 interface FxPanelNodePanel: PanelNode<Node>
 
 inline fun <T:Node> FxPanelNodePanel._ktfx(comp:T,init:T.()->Unit):T{
+    _ktfxInit(comp)
     init.invoke(comp)
     this._onAddToContent(comp)
     return comp
+}
+
+fun _ktfxInit(comp: EventTarget){
+
 }
 
 inline fun _createFxPanelNode(crossinline block:(Node) -> Unit) = object :FxPanelNode{
