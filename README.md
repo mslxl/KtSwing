@@ -43,25 +43,26 @@ See [Wiki](https://github.com/mslxl/KtGUI/wiki)
 
 ## Features
 
--[x] Support Swing
+- [x] Support Swing
 
 
--[x] Support JavaFX
+- [x] Support JavaFX
 
 
--[ ] Support jfoenix
+- [ ] Support JFoenix
 
 
--[ ] Less class
+- [ ] Less class
 
 
--[ ] Better bind
+- [ ] Better bind
 
 
--[ ] Better JOptionPane
+- [ ] Better JOptionPane
 
 
--[ ] Better Alert
+- [ ] Better Alert
 
 
--[ ] Full document
+- [ ] Full document
+
