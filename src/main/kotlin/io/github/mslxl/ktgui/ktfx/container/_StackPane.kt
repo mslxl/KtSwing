@@ -4,6 +4,7 @@
 package io.github.mslxl.ktgui.ktfx.container
 
 import io.github.mslxl.ktgui.ktfx.FxPanelNode
+import io.github.mslxl.ktgui.ktfx.FxPanelNodePanel
 import io.github.mslxl.ktgui.ktfx._ktfx
 import javafx.scene.Node
 import javafx.scene.layout.StackPane
@@ -14,4 +15,4 @@ class _StackPane:StackPane(),FxPanelNode {
     }
 }
 
-inline fun FxPanelNode.stackPane(block:_StackPane.()->Unit) = _ktfx(_StackPane(),block)
+inline fun FxPanelNodePanel.stackPane(block:_StackPane.()->Unit) = _ktfx(_StackPane(),block)

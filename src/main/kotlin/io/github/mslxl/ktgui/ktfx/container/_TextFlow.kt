@@ -4,6 +4,7 @@
 package io.github.mslxl.ktgui.ktfx.container
 
 import io.github.mslxl.ktgui.ktfx.FxPanelNode
+import io.github.mslxl.ktgui.ktfx.FxPanelNodePanel
 import io.github.mslxl.ktgui.ktfx._ktfx
 import javafx.scene.Node
 import javafx.scene.text.TextFlow
@@ -14,4 +15,4 @@ class _TextFlow: TextFlow(),FxPanelNode{
     }
 }
 
-inline fun FxPanelNode.textFlow(block:_TextFlow.()->Unit) = _ktfx(_TextFlow(),block)
+inline fun FxPanelNodePanel.textFlow(block:_TextFlow.()->Unit) = _ktfx(_TextFlow(),block)

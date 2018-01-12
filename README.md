@@ -2,9 +2,9 @@
 
 This is a DSL system for Swing and JavaFX.
 
-**Probably not backward compatible, so please be careful upgrade version.**
+**Probably not backward compatible, so please be careful of upgrade version.**
 
-**Will produce a large number of class files, cautious.**
+**It will produce a large number of class files, cautious.**
 
 [![](https://jitpack.io/v/mslxl/KtGUI.svg)](https://jitpack.io/#mslxl/KtGUI)
 
@@ -47,6 +47,12 @@ See [Wiki](https://github.com/mslxl/KtGUI/wiki)
 
 
 - [x] Support JavaFX
+
+
+- [ ] CSS
+
+
+- [ ] FXML
 
 
 - [ ] Support JFoenix

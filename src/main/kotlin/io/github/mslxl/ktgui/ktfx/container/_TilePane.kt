@@ -4,6 +4,7 @@
 package io.github.mslxl.ktgui.ktfx.container
 
 import io.github.mslxl.ktgui.ktfx.FxPanelNode
+import io.github.mslxl.ktgui.ktfx.FxPanelNodePanel
 import io.github.mslxl.ktgui.ktfx._ktfx
 import javafx.scene.Node
 import javafx.scene.layout.TilePane
@@ -14,4 +15,4 @@ class _TilePane : TilePane(), FxPanelNode {
     }
 }
 
-inline fun FxPanelNode.tilePane(block: _TilePane.() -> Unit) = _ktfx(_TilePane(), block)
+inline fun FxPanelNodePanel.tilePane(block: _TilePane.() -> Unit) = _ktfx(_TilePane(), block)

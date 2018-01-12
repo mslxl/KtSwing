@@ -4,6 +4,7 @@ package io.github.mslxl.ktgui.ktfx.container
 
 
 import io.github.mslxl.ktgui.ktfx.FxPanelNode
+import io.github.mslxl.ktgui.ktfx.FxPanelNodePanel
 import io.github.mslxl.ktgui.ktfx._ktfx
 import javafx.scene.Node
 import javafx.scene.control.Tab
@@ -22,4 +23,4 @@ class _TabPane : TabPane(){
     }
 }
 
-inline fun FxPanelNode.tabPane(block:_TabPane.()->Unit) = _ktfx(_TabPane(),block)
+inline fun FxPanelNodePanel.tabPane(block:_TabPane.()->Unit) = _ktfx(_TabPane(),block)
