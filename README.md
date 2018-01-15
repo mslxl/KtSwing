@@ -37,6 +37,11 @@ dependencies {
 }
 ```
 
+## Enable some features
+
+* `KtCfg` need to import `com.google.code.gson:gson` to your classpath
+* `JFoenix` need to import `com.jfoenix:jfoenix` to your classpath
+
 ## Getting Started
 
 See [Wiki](https://github.com/mslxl/KtGUI/wiki)
@@ -49,13 +54,13 @@ See [Wiki](https://github.com/mslxl/KtGUI/wiki)
 - [x] Support JavaFX
 
 
+- [x] Support JFoenix
+
+
 - [ ] CSS
 
 
 - [ ] FXML
-
-
-- [ ] Support JFoenix
 
 
 - [ ] Less class
@@ -69,6 +74,7 @@ See [Wiki](https://github.com/mslxl/KtGUI/wiki)
 
 - [ ] Better Alert
 
+- [ ] Better JavaFX Chart
 
 - [ ] Full document
 

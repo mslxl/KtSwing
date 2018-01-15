@@ -15,7 +15,7 @@ inline fun FxPanelNode.group(block: Group.() -> Unit) = _ktfx(Group(), block)
 
 inline fun FxPanelNode.region(block: Region.() -> Unit) = _ktfx(Region(), block)
 
-inline fun Control.tooltip(block: Tooltip.() -> Unit) = Tooltip().apply { _ktfxInit(this) }.apply(block).also { tooltip = it }
+inline fun Control.tooltip(block: Tooltip.() -> Unit) = Tooltip()._ktfxInit().apply(block).also { tooltip = it }
 
 inline var Control.tooltip: String
     get() = tooltip.text

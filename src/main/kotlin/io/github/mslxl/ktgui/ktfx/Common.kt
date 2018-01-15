@@ -13,15 +13,16 @@ interface FxPanelNode: FxPanelNodePanel
 @KtDSL
 interface FxPanelNodePanel: PanelNode<Node>
 
-inline fun <T:Node> FxPanelNodePanel._ktfx(comp:T,init:T.()->Unit):T{
-    _ktfxInit(comp)
+inline fun <T : Node> FxPanelNodePanel._ktfx(comp: T, init: T.() -> Unit = {}): T {
+    comp._ktfxInit()
     init.invoke(comp)
     this._onAddToContent(comp)
     return comp
 }
 
-fun _ktfxInit(comp: EventTarget){
+fun <E : EventTarget> E._ktfxInit(): E {
 
+    return this
 }
 
 inline fun _createFxPanelNode(crossinline block:(Node) -> Unit) = object :FxPanelNode{
