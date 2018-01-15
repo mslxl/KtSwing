@@ -84,4 +84,4 @@ class _GridLayout : BasePanel(), EndCallback {
  * 创建一个使用 [GridLayout] 的 [JPanel]
  * 你可以使用 [_GridLayout.row] 方法来添加 [JComponent] 行
  */
-inline fun SwingPanelNode.gridlayout(init: _GridLayout.() -> Unit): JPanel = _ktswing(_GridLayout(), this, init)
+inline fun SwingPanelNode.gridlayout(init: _GridLayout.() -> Unit): JPanel = _ktswing(_GridLayout(), init)

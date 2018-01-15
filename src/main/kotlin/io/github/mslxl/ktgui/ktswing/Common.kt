@@ -21,10 +21,10 @@ import javax.swing.JFrame
 interface SwingPanelNode:PanelNode<JComponent> {
 
     /**
-     * Add a [UI] to this
-     * 添加一个 [UI]
+     * Add a [SwingUI] to this
+     * 添加一个 [SwingUI]
      */
-    infix fun include(ui: UI): UI {
+    infix fun include(ui: SwingUI): SwingUI {
         this._onAddToContent(ui.view)
         return ui
     }
@@ -65,9 +65,9 @@ object AutoCacheListener:PropertyChangeListener {
  *
  * 你反正不需要他,管这么多干什么
  */
-inline fun <E : JComponent> _ktswing(comp: E, parent: SwingPanelNode, init: E.() -> Unit): E {
+inline fun <E : JComponent> SwingPanelNode._ktswing(comp: E, init: E.() -> Unit): E {
     comp.addPropertyChangeListener(AutoCacheListener)
-    parent._onAddToContent(comp)
+    _onAddToContent(comp)
     init.invoke(comp)
     comp.repaint()
     comp.validate()
@@ -126,15 +126,13 @@ inline fun _createSwingPanelNode(crossinline onAdd: (comp: JComponent) -> Unit):
  */
 class _UIPanelNode(internal val init: _UIPanelNode.() -> Unit) : SwingPanelNode {
 
-    var _view: JComponent? = null
-        get() {
-            if (field == null) {
-                init.invoke(this)
-            }
-            return field
-        }
+    lateinit var _view: JComponent
     var _template: Template? = null
     private var hasChild = false
+
+    init {
+        apply(init)
+    }
 
     override fun _onAddToContent(comp: JComponent) {
         if (!hasChild){
@@ -198,7 +196,7 @@ class _UIPanelNode(internal val init: _UIPanelNode.() -> Unit) : SwingPanelNode 
             args.forEach {
                 arg->
                 map[arg.first]?.let {
-                    val component = ui._view!!.findComponentByName<JComponent>(it.first,false)!!
+                    val component = ui._view.findComponentByName<JComponent>(it.first, false)!!
                     it.second.invoke(arg.second,component,name)
                 }
             }
@@ -213,23 +211,23 @@ class _UIPanelNode(internal val init: _UIPanelNode.() -> Unit) : SwingPanelNode 
                 }
             }
 
-            resetName(name,ui._view!!)
-            return ui._view!!
+            resetName(name, ui._view)
+            return ui._view
         }
     }
 }
 
 /**
- * Create a [JComponent] but needn't a [SwingPanelNode] object and return [UI] object.
- * Waring: [UI] only can have one child.
+ * Create a [JComponent] but needn't a [SwingPanelNode] object and return [SwingUI] object.
+ * Waring: [SwingUI] only can have one child.
  *
- * 不借助 [SwingPanelNode] 对象创建 [JComponent] 并返回 [UI] 对象
- * 注意: [UI] 仅仅只能有一个子控件nanodesu!
+ * 不借助 [SwingPanelNode] 对象创建 [JComponent] 并返回 [SwingUI] 对象
+ * 注意: [SwingUI] 仅仅只能有一个子控件nanodesu!
  */
 @KtDSL
-class UI(init: _UIPanelNode.() -> Unit) {
+class SwingUI(init: _UIPanelNode.() -> Unit) {
     val _content = _UIPanelNode(init)
-    val view: JComponent get() = _content._view!!
+    val view: JComponent get() = _content._view
 
     /**
      * Create a [_UIPanelNode.Template] object by this object

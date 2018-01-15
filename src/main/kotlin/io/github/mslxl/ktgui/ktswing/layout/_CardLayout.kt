@@ -21,4 +21,4 @@ class _CardLayout : BasePanel(), SwingPanelNode {
     }
 }
 
-inline fun SwingPanelNode.cardpanel(init: _CardLayout.() -> Unit): JPanel = _ktswing(_CardLayout(), this, init)
+inline fun SwingPanelNode.cardpanel(init: _CardLayout.() -> Unit): JPanel = _ktswing(_CardLayout(), init)

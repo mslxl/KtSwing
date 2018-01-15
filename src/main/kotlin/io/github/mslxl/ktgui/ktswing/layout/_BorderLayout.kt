@@ -47,4 +47,4 @@ class _BorderLayout : BasePanel() {
     }
 }
 
-inline fun SwingPanelNode.borderpanel(init: _BorderLayout.() -> Unit): JPanel = _ktswing(_BorderLayout(), this, init)
+inline fun SwingPanelNode.borderpanel(init: _BorderLayout.() -> Unit): JPanel = _ktswing(_BorderLayout(), init)

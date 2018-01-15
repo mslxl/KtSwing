@@ -1,4 +1,4 @@
-import io.github.mslxl.ktgui.ktswing.UI
+import io.github.mslxl.ktgui.ktswing.SwingUI
 import io.github.mslxl.ktgui.ktswing.component.button
 import io.github.mslxl.ktgui.ktswing.component.findComponentByName
 import io.github.mslxl.ktgui.ktswing.component.label
@@ -14,7 +14,7 @@ import javax.swing.*
 
 fun main(args: Array<String>) {
 
-    val template = UI{
+    val template = SwingUI {
         val insets = Insets(5, 5, 5, 5)
         gridbagpanel {
             border = BorderFactory.createEtchedBorder()

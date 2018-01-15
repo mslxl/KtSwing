@@ -30,4 +30,4 @@ enum class AXIS {
     X_AXIS, Y_AXIS, LINE_AXIS, PAGE_AXIS
 }
 
-inline fun SwingPanelNode.boxpanel(axis: AXIS = AXIS.X_AXIS, init: _BoxLayout.() -> Unit): JPanel = _ktswing(_BoxLayout(axis), this, init)
+inline fun SwingPanelNode.boxpanel(axis: AXIS = AXIS.X_AXIS, init: _BoxLayout.() -> Unit): JPanel = _ktswing(_BoxLayout(axis), init)

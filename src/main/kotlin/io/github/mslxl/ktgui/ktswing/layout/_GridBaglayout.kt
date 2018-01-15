@@ -35,4 +35,4 @@ class _GridBaglayout() : BasePanel() {
     }
 }
 
-inline fun SwingPanelNode.gridbagpanel(init: _GridBaglayout.() -> Unit): JPanel = _ktswing(_GridBaglayout(), this, init)
+inline fun SwingPanelNode.gridbagpanel(init: _GridBaglayout.() -> Unit): JPanel = _ktswing(_GridBaglayout(), init)

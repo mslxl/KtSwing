@@ -21,4 +21,4 @@ class _FlowLayout : BasePanel(), SwingPanelNode {
     }
 }
 
-inline fun SwingPanelNode.flowpanel(init: _FlowLayout.() -> Unit): JPanel = _ktswing(_FlowLayout(), this, init)
+inline fun SwingPanelNode.flowpanel(init: _FlowLayout.() -> Unit): JPanel = _ktswing(_FlowLayout(), init)

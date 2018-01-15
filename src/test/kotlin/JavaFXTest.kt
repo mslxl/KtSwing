@@ -3,6 +3,7 @@ import io.github.mslxl.ktgui.common.swing
 import io.github.mslxl.ktgui.ktfx.Scene
 import io.github.mslxl.ktgui.ktfx.container.*
 import io.github.mslxl.ktgui.ktfx.control.*
+import io.github.mslxl.ktgui.ktfx.menu.*
 import io.github.mslxl.ktgui.ktswing.component.button
 import io.github.mslxl.ktgui.ktswing.event.actionListener
 import io.github.mslxl.ktgui.ktswing.layout.borderpanel
@@ -38,10 +39,13 @@ class JavaFXTest : Application() {
                             separator
                             customMenuItem {
                                 progressIndicator()
+                                tooltip {
+                                    text = "Tooltip"
+                                }
                             }
                         }
                         contextMenu = ContextMenu {
-                            menu("Menu"){
+                            menu("Menu") {
                                 menuItem("Hello")
                             }
                         }
@@ -59,19 +63,39 @@ class JavaFXTest : Application() {
                                         text = "BorderPane"
                                         borderPane {
                                             top {
-                                                button("TOP")
+                                                button("TOP") {
+                                                    tooltip {
+                                                        text = "Tooltip"
+                                                    }
+                                                }
                                             }
                                             center {
-                                                button("CENTER")
+                                                button("CENTER") {
+                                                    tooltip {
+                                                        text = "Tooltip"
+                                                    }
+                                                }
                                             }
                                             bottom {
-                                                button("BOTTOM")
+                                                button("BOTTOM") {
+                                                    tooltip {
+                                                        text = "Tooltip"
+                                                    }
+                                                }
                                             }
                                             left {
-                                                button("LEFT")
+                                                button("LEFT") {
+                                                    tooltip {
+                                                        text = "Tooltip"
+                                                    }
+                                                }
                                             }
                                             right {
-                                                button("RIGHT")
+                                                button("RIGHT") {
+                                                    tooltip {
+                                                        text = "Tooltip"
+                                                    }
+                                                }
                                             }
                                         }
                                     }

@@ -19,6 +19,6 @@ class _AabsoluteLayout : BasePanel(), SwingPanelNode {
     }
 }
 
-inline fun SwingPanelNode.absolutepanel(init: _AabsoluteLayout.() -> Unit): JPanel = _ktswing(_AabsoluteLayout(), this, init)
+inline fun SwingPanelNode.absolutepanel(init: _AabsoluteLayout.() -> Unit): JPanel = _ktswing(_AabsoluteLayout(), init)
 
 
