@@ -10,6 +10,7 @@ import io.github.mslxl.ktgui.ktswing._UIPanelNode
 import io.github.mslxl.ktgui.ktswing._ktswing
 import javafx.embed.swing.JFXPanel
 import javafx.embed.swing.SwingNode
+import javafx.scene.Scene
 
 @KtDSL
 fun FxPanelNodePanel.swing(block: _UIPanelNode.() -> Unit): SwingNode {
@@ -23,12 +24,12 @@ fun FxPanelNodePanel.swing(block: _UIPanelNode.() -> Unit): SwingNode {
 @KtDSL
 fun SwingPanelNode.fx(block: FxPanelNode.() -> Unit) = _ktswing(JFXPanel(), {
     fxThread {
-        scene = Scene{
+        scene = Scene(FxUI {
             val s = this
             _createFxPanelNode {
                 s._ktfx(it){}
             }.apply(block)
-        }
+        }.parent)
     }
 })
 

@@ -1,4 +1,4 @@
-package io.github.mslxl.gui;
+package io.github.mslxl.ktgui;
 
 import javafx.application.Application;
 import javafx.scene.Group;

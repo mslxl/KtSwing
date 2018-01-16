@@ -1,10 +1,16 @@
-import io.github.mslxl.ktgui.ktfx.Scene
+import io.github.mslxl.ktgui.ktfx.FxUI
+import io.github.mslxl.ktgui.ktfx.container.hBox
+import io.github.mslxl.ktgui.ktfx.container.stackPane
 import io.github.mslxl.ktgui.ktfx.container.vBox
 import io.github.mslxl.ktgui.ktfx.control.label
-import io.github.mslxl.ktgui.ktfx.foenix.*
+import io.github.mslxl.ktgui.ktfx.createScene
+import io.github.mslxl.ktgui.ktfx.jfoenix.*
+
 import javafx.application.Application
 import javafx.collections.FXCollections
+import javafx.scene.control.Label
 import javafx.stage.Stage
+
 
 class JFXTest : Application() {
     internal operator fun String.times(times: Int) = buildString {
@@ -14,10 +20,10 @@ class JFXTest : Application() {
     }
 
     override fun start(stage: Stage) {
-        stage.scene = Scene {
+        stage.scene = stage.createScene {
+            //decorator {
             jfxTabPane {
                 tab("Page 1") {
-                    println(this)
                     vBox {
                         spacing = 20.0
                         jfxRippler {
@@ -41,12 +47,46 @@ class JFXTest : Application() {
                     }
                 }
                 tab("Page 2") {
-                    vBox {
-                        jfxToggleButton()
+                    stackPane {
+                        vBox {
+                            val stc = stackPane { }
+                            spacing = 20.0
+                            jfxToggleButton()
+                            jfxDatePicker()
+                            jfxListView<String>()
+                            jfxButton("Dialog") {
+                                setOnAction {
+                                    jfxDialog {
+                                        this.content = FxUI {
+                                            vBox {
+                                                spacing = 40.0
+                                                label("Deep Dark Fantasy")
+                                                hBox {
+                                                    spacing = 20.0
+                                                    jfxButton("Yes")
+                                                    jfxButton("No")
+                                                }
+                                            }
+                                        }.region
+                                        this.dialogContainer = this@stackPane
+                                    }.show()
+                                }
+                            }
+                            val drawer = jfxDrawer {
+                                setSidePane(stc)
+                                setContent(Label("aaaa"))
+                            }
+                            jfxButton("Drawer") {
+                                setOnAction {
+                                    drawer.toggle()
+                                }
+                            }
+
+                            //}
+                        }
                     }
                 }
             }
-
         }
         stage.show()
         stage.width = 400.0

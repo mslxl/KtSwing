@@ -1,7 +1,7 @@
 @file:JvmName("JFoenix")
 @file:JvmMultifileClass
 
-package io.github.mslxl.ktgui.ktfx.foenix
+package io.github.mslxl.ktgui.ktfx.jfoenix
 
 import com.jfoenix.controls.*
 import io.github.mslxl.ktgui.ktfx.*

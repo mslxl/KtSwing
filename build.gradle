@@ -50,7 +50,7 @@ task javadok(type: Jar, dependsOn: dokka) {
 
 jar {
     manifest {
-        attributes 'Main-Class': 'io.github.mslxl.gui.KtGUIAbout'
+        attributes 'Main-Class': 'io.github.mslxl.ktgui.KtGUIAbout'
     }
 }
 

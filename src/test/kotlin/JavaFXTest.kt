@@ -1,8 +1,8 @@
 import io.github.mslxl.ktgui.common.fx
 import io.github.mslxl.ktgui.common.swing
-import io.github.mslxl.ktgui.ktfx.Scene
 import io.github.mslxl.ktgui.ktfx.container.*
 import io.github.mslxl.ktgui.ktfx.control.*
+import io.github.mslxl.ktgui.ktfx.createScene
 import io.github.mslxl.ktgui.ktfx.menu.*
 import io.github.mslxl.ktgui.ktswing.component.button
 import io.github.mslxl.ktgui.ktswing.event.actionListener
@@ -23,7 +23,7 @@ class JavaFXTest : Application() {
         }
 
     override fun start(stage: Stage) {
-        stage.scene = Scene {
+        stage.scene = stage.createScene {
             borderPane {
                 top {
                     menuBar {
