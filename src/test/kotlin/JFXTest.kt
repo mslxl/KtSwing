@@ -21,68 +21,68 @@ class JFXTest : Application() {
 
     override fun start(stage: Stage) {
         stage.scene = stage.createScene {
-            //decorator {
-            jfxTabPane {
-                tab("Page 1") {
-                    vBox {
-                        spacing = 20.0
-                        jfxRippler {
-                            label("AAA" * 40)
-                        }
-                        jfxButton("jfxButton")
-                        jfxCheckBox("jfxCheckBox")
-                        jfxComboBox<String> {
-                            items = TEST_DATA_ITEM
-                            selectionModel.selectFirst()
-                        }
-                        jfxHamburger()
-                        jfxTextField {
-                            text = "JFXTextField"
-                            isLabelFloat = true
-                            promptText = "Deep Dark Fantasy"
-                        }
-                        jfxRadioButton("jfxRadioButton")
-                        jfxProgressBar()
-                        jfxSlider()
-                    }
-                }
-                tab("Page 2") {
-                    stackPane {
+            decorator {
+                jfxTabPane {
+                    tab("Page 1") {
                         vBox {
-                            val stc = stackPane { }
                             spacing = 20.0
-                            jfxToggleButton()
-                            jfxDatePicker()
-                            jfxListView<String>()
-                            jfxButton("Dialog") {
-                                setOnAction {
-                                    jfxDialog {
-                                        this.content = FxUI {
-                                            vBox {
-                                                spacing = 40.0
-                                                label("Deep Dark Fantasy")
-                                                hBox {
-                                                    spacing = 20.0
-                                                    jfxButton("Yes")
-                                                    jfxButton("No")
+                            jfxRippler {
+                                label("AAA" * 40)
+                            }
+                            jfxButton("jfxButton")
+                            jfxCheckBox("jfxCheckBox")
+                            jfxComboBox<String> {
+                                items = TEST_DATA_ITEM
+                                selectionModel.selectFirst()
+                            }
+                            jfxHamburger()
+                            jfxTextField {
+                                text = "JFXTextField"
+                                isLabelFloat = true
+                                promptText = "Deep Dark Fantasy"
+                            }
+                            jfxRadioButton("jfxRadioButton")
+                            jfxProgressBar()
+                            jfxSlider()
+                        }
+                    }
+                    tab("Page 2") {
+                        stackPane {
+                            vBox {
+                                val stc = stackPane { }
+                                spacing = 20.0
+                                jfxToggleButton()
+                                jfxDatePicker()
+                                jfxListView<String>()
+                                jfxButton("Dialog") {
+                                    setOnAction {
+                                        jfxDialog {
+                                            this.content = FxUI {
+                                                vBox {
+                                                    spacing = 40.0
+                                                    label("Deep Dark Fantasy")
+                                                    hBox {
+                                                        spacing = 20.0
+                                                        jfxButton("Yes")
+                                                        jfxButton("No")
+                                                    }
                                                 }
-                                            }
-                                        }.region
-                                        this.dialogContainer = this@stackPane
-                                    }.show()
+                                            }.region
+                                            this.dialogContainer = this@stackPane
+                                        }.show()
+                                    }
                                 }
-                            }
-                            val drawer = jfxDrawer {
-                                setSidePane(stc)
-                                setContent(Label("aaaa"))
-                            }
-                            jfxButton("Drawer") {
-                                setOnAction {
-                                    drawer.toggle()
+                                val drawer = jfxDrawer {
+                                    setSidePane(stc)
+                                    setContent(Label("aaaa"))
                                 }
-                            }
+                                jfxButton("Drawer") {
+                                    setOnAction {
+                                        drawer.toggle()
+                                    }
+                                }
 
-                            //}
+                            }
                         }
                     }
                 }
