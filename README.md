@@ -6,6 +6,8 @@ This is a DSL system for Swing and JavaFX.
 
 **It will produce a large number of class files, cautious.**
 
+**Due to academic problems, the junior high school can hardly to update until me graduation**
+
 [![](https://jitpack.io/v/mslxl/KtGUI.svg)](https://jitpack.io/#mslxl/KtGUI)
 
 [![](https://travis-ci.org/mslxl/KtGUI.svg?branch=master)](https://travis-ci.org/mslxl/KtGUI/)
@@ -33,7 +35,7 @@ Then add the dependency
 
 ```groovy
 dependencies {
-    compile 'com.github.mslxl:KtGUI:${ktgui_version}'
+    compile "com.github.mslxl:KtGUI:${ktgui_version}"
 }
 ```
 
