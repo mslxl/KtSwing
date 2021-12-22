@@ -1,12 +1,6 @@
-*.iml
-*.test
-/.idea/
+*.jar
+*.class
+!/gradle/**/*
 /.gradle/
-/out/
+/.idea/
 /build/
-/codeGenerate/
-/EventGenerate/build/
-/EventGenerate/out/
-/EventGenerate/.gradle/
-/fxml_preview.fxml
-/KtGUI.wiki/
