@@ -57,7 +57,7 @@ allprojects {
 **Step 2.** Add the dependency
 ```groovy
 	dependencies {
-	        implementation 'com.github.mslxl:KtSwing:Tag'
+	        implementation 'com.github.mslxl:KtSwing:2.0.3'
     }
 ```
 Enjoy it!

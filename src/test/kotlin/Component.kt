@@ -37,7 +37,6 @@ fun main() = frame {
     defaultLayout {
         tabbedPane {
             tab("Basic"){
-
                 flowLayout {
                     button("Button")
                     checkBox("CheckBox")
