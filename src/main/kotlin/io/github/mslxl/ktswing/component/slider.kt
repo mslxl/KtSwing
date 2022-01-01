@@ -3,7 +3,6 @@ package io.github.mslxl.ktswing.component
 import io.github.mslxl.ktswing.BasicScope
 import io.github.mslxl.ktswing.ChildrenScope
 import javax.swing.BoundedRangeModel
-import javax.swing.JProgressBar
 import javax.swing.JSlider
 
 inline fun ChildrenScope<*>.slider(orient: Int = 0, block: BasicScope<JSlider>.() -> Unit) =

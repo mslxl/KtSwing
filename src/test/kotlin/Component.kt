@@ -1,6 +1,7 @@
 import io.github.mslxl.ktswing.component.*
 import io.github.mslxl.ktswing.exitOnClose
 import io.github.mslxl.ktswing.frame
+import io.github.mslxl.ktswing.layout.borderLayout
 import io.github.mslxl.ktswing.layout.flowLayout
 import io.github.mslxl.ktswing.withH
 import io.github.mslxl.ktswing.withW
@@ -32,32 +33,50 @@ fun main() = frame {
         menu("Edit") {}
         menu("View") {}
     }
-    flowLayout {
-        button("Button")
-        checkBox("CheckBox")
-        textArea(text = "TextArea")
-        textField(text = "TextField")
-        passwordField(password = "3.141592653")
-        panel {
-            attr {
-                border = TitledBorder("RadioButton")
-            }
-            flowLayout {
-                val btnGroup = ButtonGroup()
-                radioButton(text = "Option 1", group = btnGroup)
-                radioButton(text = "Option 2", group = btnGroup)
-                radioButton(text = "Option 3", group = btnGroup)
-            }
-        }
-        toggleButton("ToggleButton")
-        progressBar(min = 0, max = 100) {
-            attr {
-                value = 50
-            }
-        }
-        slider(1,min = 0, max = 100)
-        list((1..10).map { "Item $it" })
 
+    defaultLayout {
+        tabbedPane {
+            tab("Basic"){
+
+                flowLayout {
+                    button("Button")
+                    checkBox("CheckBox")
+                    textArea(text = "TextArea")
+                    textField(text = "TextField")
+                    passwordField(password = "3.141592653")
+                    panel {
+                        attr {
+                            border = TitledBorder("RadioButton")
+                        }
+                        flowLayout {
+                            val btnGroup = ButtonGroup()
+                            radioButton(text = "Option 1", group = btnGroup)
+                            radioButton(text = "Option 2", group = btnGroup)
+                            radioButton(text = "Option 3", group = btnGroup)
+                        }
+                    }
+                    toggleButton("ToggleButton")
+                    progressBar(min = 0, max = 100) {
+                        attr {
+                            value = 50
+                        }
+                    }
+                    slider(1, min = 0, max = 100)
+                    scrollbar(1)
+                    scrollPane {
+                        list((1..50).map { "Item $it" })
+                    }
+                    comboBox((1..10).map { "Item $it" })
+                }
+            }
+            tab("Second"){
+                borderLayout {
+                    top{
+                        label("2nd Tab")
+                    }
+                }
+            }
+        }
 
     }
 }.exitOnClose

@@ -13,15 +13,17 @@ import javax.swing.border.TitledBorder
 
 
 fun searchBar() = swing<JPanel> {
-    attr {
-        border = TitledBorder("Search")
-    }
-    borderLayout {
-        center {
-            textField()
+    panel {
+        attr {
+            border = TitledBorder("Search")
         }
-        right {
-            button("Search")
+        borderLayout {
+            center {
+                textField()
+            }
+            right {
+                button("Search")
+            }
         }
     }
 }
@@ -34,7 +36,7 @@ fun main() =
         }
         borderLayout {
             top {
-                panel(searchBar().initBlock)
+                add(searchBar())
             }
             center {
                 textArea()
