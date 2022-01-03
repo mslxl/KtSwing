@@ -1,17 +1,31 @@
 @file:Suppress("unused")
+
 package io.github.mslxl.ktswing
 
 import java.awt.Frame
 import javax.swing.JFrame
 import javax.swing.WindowConstants.*
+import kotlin.contracts.ExperimentalContracts
+import kotlin.contracts.InvocationKind
+import kotlin.contracts.contract
 
 
+@OptIn(ExperimentalContracts::class)
 inline fun <T : JFrame> customFrame(frame: T, block: FrameScope<T>.() -> Unit): T {
+    contract {
+        callsInPlace(block, InvocationKind.EXACTLY_ONCE)
+    }
     return FrameScope(frame).apply(block).self
 }
 
-inline fun frame(visible: Boolean = true, block: FrameScope<JFrame>.() -> Unit) = customFrame(JFrame(), block).apply {
-    isVisible = visible
+@OptIn(ExperimentalContracts::class)
+inline fun frame(visible: Boolean = true, block: FrameScope<JFrame>.() -> Unit): JFrame {
+    contract {
+        callsInPlace(block, InvocationKind.EXACTLY_ONCE)
+    }
+    return customFrame(JFrame(), block).apply {
+        isVisible = visible
+    }
 }
 
 /**

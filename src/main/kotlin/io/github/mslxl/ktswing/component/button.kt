@@ -6,15 +6,33 @@ import io.github.mslxl.ktswing.BasicScope
 import io.github.mslxl.ktswing.ChildrenScope
 import javax.swing.Icon
 import javax.swing.JButton
+import kotlin.contracts.ExperimentalContracts
+import kotlin.contracts.InvocationKind
+import kotlin.contracts.contract
 
-inline fun ChildrenScope<*>.button(text: String, block: BasicScope<JButton>.() -> Unit) =
-    applyComponent(JButton(text), block)
+@OptIn(ExperimentalContracts::class)
+inline fun ChildrenScope<*>.button(text: String, block: BasicScope<JButton>.() -> Unit): JButton {
+    contract {
+        callsInPlace(block, InvocationKind.EXACTLY_ONCE)
+    }
+    return applyComponent(JButton(text), block)
+}
 
-inline fun ChildrenScope<*>.button(icon: Icon, block: BasicScope<JButton>.() -> Unit) =
-    applyComponent(JButton(icon), block)
+@OptIn(ExperimentalContracts::class)
+inline fun ChildrenScope<*>.button(icon: Icon, block: BasicScope<JButton>.() -> Unit): JButton {
+    contract {
+        callsInPlace(block, InvocationKind.EXACTLY_ONCE)
+    }
+    return applyComponent(JButton(icon), block)
+}
 
-inline fun ChildrenScope<*>.button(text: String, icon: Icon, block: BasicScope<JButton>.() -> Unit) =
-    applyComponent(JButton(text, icon), block)
+@OptIn(ExperimentalContracts::class)
+inline fun ChildrenScope<*>.button(text: String, icon: Icon, block: BasicScope<JButton>.() -> Unit): JButton {
+    contract {
+        callsInPlace(block, InvocationKind.EXACTLY_ONCE)
+    }
+    return applyComponent(JButton(text, icon), block)
+}
 
 fun ChildrenScope<*>.button(text: String) =
     button(text) {}

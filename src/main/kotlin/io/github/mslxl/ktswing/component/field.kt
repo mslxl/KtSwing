@@ -1,4 +1,5 @@
 @file:Suppress("unused")
+
 package io.github.mslxl.ktswing.component
 
 import io.github.mslxl.ktswing.BasicScope
@@ -7,13 +8,22 @@ import javax.swing.JPasswordField
 import javax.swing.JTextArea
 import javax.swing.JTextField
 import javax.swing.text.Document
+import kotlin.contracts.ExperimentalContracts
+import kotlin.contracts.InvocationKind
+import kotlin.contracts.contract
 
+@OptIn(ExperimentalContracts::class)
 inline fun ChildrenScope<*>.textField(
     doc: Document? = null,
     text: String? = null,
     column: Int = 0,
     block: BasicScope<JTextField>.() -> Unit
-) = applyContainer(JTextField(doc, text, column), block)
+): JTextField {
+    contract {
+        callsInPlace(block, InvocationKind.EXACTLY_ONCE)
+    }
+    return applyContainer(JTextField(doc, text, column), block)
+}
 
 fun ChildrenScope<*>.textField(
     doc: Document? = null,
@@ -22,12 +32,18 @@ fun ChildrenScope<*>.textField(
 ) = textField(doc, text, column) {}
 
 
+@OptIn(ExperimentalContracts::class)
 inline fun ChildrenScope<*>.passwordField(
     doc: Document? = null,
     password: String? = null,
     column: Int = 0,
     block: BasicScope<JPasswordField>.() -> Unit
-) = applyComponent(JPasswordField(doc, password, column), block)
+): JPasswordField {
+    contract {
+        callsInPlace(block, kotlin.contracts.InvocationKind.EXACTLY_ONCE)
+    }
+    return applyComponent(JPasswordField(doc, password, column), block)
+}
 
 fun ChildrenScope<*>.passwordField(
     doc: Document? = null,
@@ -35,13 +51,19 @@ fun ChildrenScope<*>.passwordField(
     column: Int = 0,
 ) = passwordField(doc, password, column) {}
 
+@OptIn(ExperimentalContracts::class)
 fun ChildrenScope<*>.textArea(
     doc: Document? = null,
     text: String? = null,
     row: Int = 0,
     column: Int = 0,
     block: BasicScope<JTextArea>.() -> Unit
-) = applyComponent(JTextArea(doc, text, row, column), block)
+): JTextArea {
+    contract {
+        callsInPlace(block, InvocationKind.EXACTLY_ONCE)
+    }
+    return applyComponent(JTextArea(doc, text, row, column), block)
+}
 
 fun ChildrenScope<*>.textArea(
     doc: Document? = null,

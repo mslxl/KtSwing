@@ -11,6 +11,9 @@ import java.awt.Component
 import java.awt.Container
 import java.awt.GridLayout
 import javax.swing.JLabel
+import kotlin.contracts.ExperimentalContracts
+import kotlin.contracts.InvocationKind
+import kotlin.contracts.contract
 import kotlin.math.max
 
 class GridLayoutRootScope<T : Container>(val self: T, val layout: GridLayout) : LayoutScope, NeedUpdate {
@@ -20,7 +23,11 @@ class GridLayoutRootScope<T : Container>(val self: T, val layout: GridLayout) : 
 
     val rows = arrayListOf<GridLayoutRowScope<T>>()
 
+    @OptIn(ExperimentalContracts::class)
     inline fun row(block: GridLayoutRowScope<T>.() -> Unit) {
+        contract {
+            callsInPlace(block, InvocationKind.EXACTLY_ONCE)
+        }
         layout.rows++
         val row = GridLayoutRowScope(self, layout, layout.rows).apply(block)
         rows.add(row)
@@ -58,11 +65,15 @@ fun <T : Container> gridLayout(
     return { it: T -> GridLayoutRootScope(it, layout) }
 }
 
+@OptIn(ExperimentalContracts::class)
 inline fun <T : Container> ContainerScope<T>.gridLayout(
     hGap: Int = 0,
     vGap: Int = 0,
     block: GridLayoutRootScope<T>.() -> Unit
 ): GridLayout {
+    contract {
+        callsInPlace(block, kotlin.contracts.InvocationKind.EXACTLY_ONCE)
+    }
     return gridLayout<T>(hGap, vGap).invoke(self).apply(block).apply {
         update()
     }.layout

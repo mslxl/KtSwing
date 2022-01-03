@@ -1,11 +1,11 @@
 package io.github.mslxl.ktswing.group
 
 import io.github.mslxl.ktswing.ChildrenScope
-import io.github.mslxl.ktswing.ContainerScope
-import javafx.scene.Parent
 import java.awt.Component
-import java.awt.Container
 import javax.swing.JComponent
+import kotlin.contracts.ExperimentalContracts
+import kotlin.contracts.InvocationKind
+import kotlin.contracts.contract
 
 private object EmptyJComponent : JComponent()
 
@@ -19,5 +19,10 @@ class SwingComponentBuilderScope<T>() : ChildrenScope<JComponent>(EmptyJComponen
 }
 
 
-inline fun <T> swing(block: SwingComponentBuilderScope<T>.() -> Unit): T =
-    SwingComponentBuilderScope<T>().apply(block).component!!
+@OptIn(ExperimentalContracts::class)
+inline fun <T> swing(block: SwingComponentBuilderScope<T>.() -> Unit): T {
+    contract {
+        callsInPlace(block, InvocationKind.EXACTLY_ONCE)
+    }
+    return SwingComponentBuilderScope<T>().apply(block).component!!
+}
