@@ -29,6 +29,6 @@ inline fun ChildrenScope<*>.tabbedPane(
     }
     val pane = JTabbedPane(tabPlacement, tabLayoutPolicy)
     TabbedPaneScope(pane).apply(block)
-    self.add(pane)
+    add(pane)
     return pane
 }

@@ -21,6 +21,6 @@ inline fun <T : Container> ChildrenScope<T>.scrollPane(block: ScrollPaneScope<JS
     }
     val pane = JScrollPane()
     ScrollPaneScope(pane).apply(block)
-    self.add(pane)
+    add(pane)
     return pane
 }

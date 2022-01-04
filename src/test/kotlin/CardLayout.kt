@@ -1,5 +1,6 @@
 import io.github.mslxl.ktswing.component.button
 import io.github.mslxl.ktswing.component.panel
+import io.github.mslxl.ktswing.component.tabbedPane
 import io.github.mslxl.ktswing.exitOnClose
 import io.github.mslxl.ktswing.frame
 import io.github.mslxl.ktswing.layout.borderLayout
@@ -23,7 +24,13 @@ fun main() = frame {
                         button("1")
                     }
                     card("2") {
-                        button("2")
+                        tabbedPane {
+                            tab("ww"){
+                                defaultLayout {
+                                    button("wwww")
+                                }
+                            }
+                        }
                     }
                 }
             }
