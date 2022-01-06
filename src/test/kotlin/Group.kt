@@ -1,13 +1,10 @@
+import io.github.mslxl.ktswing.*
 import io.github.mslxl.ktswing.component.button
 import io.github.mslxl.ktswing.component.panel
 import io.github.mslxl.ktswing.component.textArea
 import io.github.mslxl.ktswing.component.textField
-import io.github.mslxl.ktswing.exitOnClose
-import io.github.mslxl.ktswing.frame
 import io.github.mslxl.ktswing.group.swing
 import io.github.mslxl.ktswing.layout.borderLayout
-import io.github.mslxl.ktswing.withH
-import io.github.mslxl.ktswing.withW
 import javax.swing.JPanel
 import javax.swing.border.TitledBorder
 

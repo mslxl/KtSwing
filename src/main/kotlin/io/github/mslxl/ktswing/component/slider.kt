@@ -1,7 +1,7 @@
 package io.github.mslxl.ktswing.component
 
 import io.github.mslxl.ktswing.BasicScope
-import io.github.mslxl.ktswing.ChildrenScope
+import io.github.mslxl.ktswing.CanAddChildrenScope
 import javax.swing.BoundedRangeModel
 import javax.swing.JSlider
 import kotlin.contracts.ExperimentalContracts
@@ -9,7 +9,7 @@ import kotlin.contracts.InvocationKind
 import kotlin.contracts.contract
 
 @OptIn(ExperimentalContracts::class)
-inline fun ChildrenScope<*>.slider(orient: Int = 0, block: BasicScope<JSlider>.() -> Unit): JSlider {
+inline fun CanAddChildrenScope<*>.slider(orient: Int = 0, block: BasicScope<JSlider>.() -> Unit): JSlider {
     contract {
         callsInPlace(block, InvocationKind.EXACTLY_ONCE)
     }
@@ -17,7 +17,7 @@ inline fun ChildrenScope<*>.slider(orient: Int = 0, block: BasicScope<JSlider>.(
 }
 
 @OptIn(ExperimentalContracts::class)
-inline fun ChildrenScope<*>.slider(
+inline fun CanAddChildrenScope<*>.slider(
     min: Int = 0,
     max: Int = 100,
     value: Int = 50,
@@ -30,7 +30,7 @@ inline fun ChildrenScope<*>.slider(
 }
 
 @OptIn(ExperimentalContracts::class)
-inline fun ChildrenScope<*>.slider(
+inline fun CanAddChildrenScope<*>.slider(
     orient: Int = 0,
     min: Int = 0,
     max: Int = 100,
@@ -44,28 +44,28 @@ inline fun ChildrenScope<*>.slider(
 }
 
 @OptIn(ExperimentalContracts::class)
-inline fun ChildrenScope<*>.slider(model: BoundedRangeModel, block: BasicScope<JSlider>.() -> Unit): JSlider {
+inline fun CanAddChildrenScope<*>.slider(model: BoundedRangeModel, block: BasicScope<JSlider>.() -> Unit): JSlider {
     contract {
         callsInPlace(block, InvocationKind.EXACTLY_ONCE)
     }
     return applyComponent(JSlider(model), block)
 }
 
-fun ChildrenScope<*>.slider(orient: Int = 0) =
+fun CanAddChildrenScope<*>.slider(orient: Int = 0) =
     slider(orient) {}
 
-fun ChildrenScope<*>.slider(
+fun CanAddChildrenScope<*>.slider(
     min: Int = 0,
     max: Int = 100,
     value: Int = 50
 ) = slider(min, max, value) {}
 
-fun ChildrenScope<*>.slider(
+fun CanAddChildrenScope<*>.slider(
     orient: Int = 0,
     min: Int = 0,
     max: Int = 100,
     value: Int = 50
 ) = slider(orient, min, max, value) {}
 
-fun ChildrenScope<*>.slider(model: BoundedRangeModel) =
+fun CanAddChildrenScope<*>.slider(model: BoundedRangeModel) =
     slider(model) {}

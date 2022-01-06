@@ -1,6 +1,6 @@
 package io.github.mslxl.ktswing.component
 
-import io.github.mslxl.ktswing.ChildrenScope
+import io.github.mslxl.ktswing.CanAddChildrenScope
 import java.awt.Component
 import java.awt.Container
 import javax.swing.JScrollPane
@@ -8,14 +8,14 @@ import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.InvocationKind
 import kotlin.contracts.contract
 
-class ScrollPaneScope<T : JScrollPane>(self: T) : ChildrenScope<T>(self) {
+class ScrollPaneScope(override val self: JScrollPane) : CanAddChildrenScope<JScrollPane> {
     override fun add(component: Component) {
         self.setViewportView(component)
     }
 }
 
 @OptIn(ExperimentalContracts::class)
-inline fun <T : Container> ChildrenScope<T>.scrollPane(block: ScrollPaneScope<JScrollPane>.() -> Unit): JScrollPane {
+inline fun <T : Container> CanAddChildrenScope<T>.scrollPane(block: ScrollPaneScope.() -> Unit): JScrollPane {
     contract {
         callsInPlace(block, InvocationKind.EXACTLY_ONCE)
     }

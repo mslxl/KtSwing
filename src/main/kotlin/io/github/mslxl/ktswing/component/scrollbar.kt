@@ -1,14 +1,14 @@
 package io.github.mslxl.ktswing.component
 
 import io.github.mslxl.ktswing.BasicScope
-import io.github.mslxl.ktswing.ChildrenScope
+import io.github.mslxl.ktswing.CanAddChildrenScope
 import javax.swing.JScrollBar
 import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.InvocationKind
 import kotlin.contracts.contract
 
 @OptIn(ExperimentalContracts::class)
-inline fun ChildrenScope<*>.scrollbar(orient: Int = 0, block: BasicScope<JScrollBar>.() -> Unit): JScrollBar {
+inline fun CanAddChildrenScope<*>.scrollbar(orient: Int = 0, block: BasicScope<JScrollBar>.() -> Unit): JScrollBar {
     contract {
         callsInPlace(block, InvocationKind.EXACTLY_ONCE)
     }
@@ -16,7 +16,7 @@ inline fun ChildrenScope<*>.scrollbar(orient: Int = 0, block: BasicScope<JScroll
 }
 
 @OptIn(ExperimentalContracts::class)
-inline fun ChildrenScope<*>.scrollbar(
+inline fun CanAddChildrenScope<*>.scrollbar(
     orient: Int = 0,
     value: Int = 0,
     extent: Int = 10,
@@ -31,9 +31,9 @@ inline fun ChildrenScope<*>.scrollbar(
 }
 
 
-fun ChildrenScope<*>.scrollbar(orient: Int = 0) = scrollbar(orient) {}
+fun CanAddChildrenScope<*>.scrollbar(orient: Int = 0) = scrollbar(orient) {}
 
-fun ChildrenScope<*>.scrollbar(
+fun CanAddChildrenScope<*>.scrollbar(
     orient: Int = 0,
     value: Int = 0,
     extent: Int = 10,

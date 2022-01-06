@@ -1,11 +1,11 @@
 package io.github.mslxl.ktswing.component
 
-import io.github.mslxl.ktswing.ChildrenScope
+import io.github.mslxl.ktswing.CanAddChildrenScope
 import java.awt.Component
 import java.awt.Dimension
 import javax.swing.Box
 
-class BoxScope(self: Box, private val isVertical: Boolean) : ChildrenScope<Box>(self) {
+class BoxScope(override val self: Box, private val isVertical: Boolean) : CanAddChildrenScope<Box> {
 
     @Suppress("NOTHING_TO_INLINE")
     private inline fun <T : Component> addAndReturn(comp: T): T {
@@ -42,14 +42,14 @@ class BoxScope(self: Box, private val isVertical: Boolean) : ChildrenScope<Box>(
 
 }
 
-inline fun ChildrenScope<*>.vBox(block: BoxScope.() -> Unit): Box {
+inline fun CanAddChildrenScope<*>.vBox(block: BoxScope.() -> Unit): Box {
     val box = Box.createVerticalBox()
     BoxScope(box, true).apply(block)
     add(box)
     return box
 }
 
-inline fun ChildrenScope<*>.hBox(block: BoxScope.() -> Unit): Box {
+inline fun CanAddChildrenScope<*>.hBox(block: BoxScope.() -> Unit): Box {
     val box = Box.createHorizontalBox()
     BoxScope(box, false).apply(block)
     add(box)

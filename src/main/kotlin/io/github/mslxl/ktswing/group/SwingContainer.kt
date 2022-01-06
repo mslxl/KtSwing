@@ -1,6 +1,6 @@
 package io.github.mslxl.ktswing.group
 
-import io.github.mslxl.ktswing.ChildrenScope
+import io.github.mslxl.ktswing.CanAddChildrenScope
 import java.awt.Component
 import javax.swing.JComponent
 import kotlin.contracts.ExperimentalContracts
@@ -10,7 +10,7 @@ import kotlin.contracts.contract
 private object EmptyJComponent : JComponent()
 
 
-class SwingComponentBuilderScope<T>() : ChildrenScope<JComponent>(EmptyJComponent) {
+class SwingComponentBuilderScope<T>(override val self: JComponent = EmptyJComponent) : CanAddChildrenScope<JComponent> {
     var component: T? = null
     override fun add(component: Component) {
         @Suppress("UNCHECKED_CAST")

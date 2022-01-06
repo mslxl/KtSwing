@@ -3,7 +3,7 @@
 package io.github.mslxl.ktswing.component
 
 import io.github.mslxl.ktswing.BasicScope
-import io.github.mslxl.ktswing.ChildrenScope
+import io.github.mslxl.ktswing.CanAddChildrenScope
 import javax.swing.JPasswordField
 import javax.swing.JTextArea
 import javax.swing.JTextField
@@ -13,7 +13,7 @@ import kotlin.contracts.InvocationKind
 import kotlin.contracts.contract
 
 @OptIn(ExperimentalContracts::class)
-inline fun ChildrenScope<*>.textField(
+inline fun CanAddChildrenScope<*>.textField(
     doc: Document? = null,
     text: String? = null,
     column: Int = 0,
@@ -25,7 +25,7 @@ inline fun ChildrenScope<*>.textField(
     return applyContainer(JTextField(doc, text, column), block)
 }
 
-fun ChildrenScope<*>.textField(
+fun CanAddChildrenScope<*>.textField(
     doc: Document? = null,
     text: String? = null,
     column: Int = 0,
@@ -33,7 +33,7 @@ fun ChildrenScope<*>.textField(
 
 
 @OptIn(ExperimentalContracts::class)
-inline fun ChildrenScope<*>.passwordField(
+inline fun CanAddChildrenScope<*>.passwordField(
     doc: Document? = null,
     password: String? = null,
     column: Int = 0,
@@ -45,14 +45,14 @@ inline fun ChildrenScope<*>.passwordField(
     return applyComponent(JPasswordField(doc, password, column), block)
 }
 
-fun ChildrenScope<*>.passwordField(
+fun CanAddChildrenScope<*>.passwordField(
     doc: Document? = null,
     password: String? = null,
     column: Int = 0,
 ) = passwordField(doc, password, column) {}
 
 @OptIn(ExperimentalContracts::class)
-fun ChildrenScope<*>.textArea(
+fun CanAddChildrenScope<*>.textArea(
     doc: Document? = null,
     text: String? = null,
     row: Int = 0,
@@ -65,7 +65,7 @@ fun ChildrenScope<*>.textArea(
     return applyComponent(JTextArea(doc, text, row, column), block)
 }
 
-fun ChildrenScope<*>.textArea(
+fun CanAddChildrenScope<*>.textArea(
     doc: Document? = null,
     text: String? = null,
     row: Int = 0,

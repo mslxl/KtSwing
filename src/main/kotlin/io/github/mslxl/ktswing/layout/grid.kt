@@ -3,8 +3,8 @@
 package io.github.mslxl.ktswing.layout
 
 
-import io.github.mslxl.ktswing.ChildrenScope
-import io.github.mslxl.ktswing.ContainerScope
+import io.github.mslxl.ktswing.CanAddChildrenScope
+import io.github.mslxl.ktswing.CanSetLayoutScope
 import io.github.mslxl.ktswing.LayoutScope
 import io.github.mslxl.ktswing.NeedUpdate
 import java.awt.Component
@@ -49,8 +49,8 @@ class GridLayoutRootScope<T : Container>(val self: T, val layout: GridLayout) : 
     }
 }
 
-class GridLayoutRowScope<T : Container>(self: T, val layout: GridLayout, val rowPos: Int) :
-    ChildrenScope<T>(self) {
+class GridLayoutRowScope<T : Container>(override val self: T, val layout: GridLayout, val rowPos: Int) :
+    CanAddChildrenScope<T> {
     internal val column = arrayListOf<Component>()
     override fun add(component: Component) {
         column.add(component)
@@ -66,10 +66,8 @@ fun <T : Container> gridLayout(
 }
 
 @OptIn(ExperimentalContracts::class)
-inline fun <T : Container> ContainerScope<T>.gridLayout(
-    hGap: Int = 0,
-    vGap: Int = 0,
-    block: GridLayoutRootScope<T>.() -> Unit
+inline fun <T : Container> CanSetLayoutScope<T>.gridLayout(
+    hGap: Int = 0, vGap: Int = 0, block: GridLayoutRootScope<T>.() -> Unit
 ): GridLayout {
     contract {
         callsInPlace(block, kotlin.contracts.InvocationKind.EXACTLY_ONCE)

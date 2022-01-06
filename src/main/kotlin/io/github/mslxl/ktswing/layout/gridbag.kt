@@ -1,7 +1,7 @@
 package io.github.mslxl.ktswing.layout
 
-import io.github.mslxl.ktswing.ChildrenScope
-import io.github.mslxl.ktswing.ContainerScope
+import io.github.mslxl.ktswing.CanAddChildrenScope
+import io.github.mslxl.ktswing.CanSetLayoutScope
 import io.github.mslxl.ktswing.LayoutScope
 import java.awt.Component
 import java.awt.Container
@@ -25,8 +25,8 @@ class GridBagLayoutRootScope<T : Container>(val self: T, val layout: GridBagLayo
     }
 }
 
-class GridBagLayoutCellScope<T : Container>(self: T, val layout: GridBagLayout) :
-    ChildrenScope<T>(self) {
+class GridBagLayoutCellScope<T : Container>(override val self: T, val layout: GridBagLayout) :
+    CanAddChildrenScope<T> {
     val constraints = GridBagConstraints()
 
     @OptIn(ExperimentalContracts::class)
@@ -50,7 +50,7 @@ fun <T : Container> gridBagLayout(
 }
 
 @OptIn(ExperimentalContracts::class)
-inline fun <T : Container> ContainerScope<T>.gridBagLayout(
+inline fun <T : Container> CanSetLayoutScope<T>.gridBagLayout(
     block: GridBagLayoutRootScope<T>.() -> Unit
 ): GridBagLayout {
     contract {

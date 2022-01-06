@@ -1,10 +1,7 @@
+import io.github.mslxl.ktswing.*
 import io.github.mslxl.ktswing.component.*
-import io.github.mslxl.ktswing.exitOnClose
-import io.github.mslxl.ktswing.frame
 import io.github.mslxl.ktswing.layout.borderLayout
 import io.github.mslxl.ktswing.layout.flowLayout
-import io.github.mslxl.ktswing.withH
-import io.github.mslxl.ktswing.withW
 import javax.swing.ButtonGroup
 import javax.swing.border.TitledBorder
 

@@ -1,7 +1,7 @@
 package io.github.mslxl.ktswing.component
 
 import io.github.mslxl.ktswing.BasicScope
-import io.github.mslxl.ktswing.ChildrenScope
+import io.github.mslxl.ktswing.CanAddChildrenScope
 import io.github.mslxl.ktswing.FrameScope
 import javax.swing.*
 import kotlin.contracts.ExperimentalContracts
@@ -9,41 +9,41 @@ import kotlin.contracts.InvocationKind
 import kotlin.contracts.contract
 
 @OptIn(ExperimentalContracts::class)
-inline fun <T : JFrame> FrameScope<T>.menuBar(block: ChildrenScope<JMenuBar>.() -> Unit): JMenuBar {
+inline fun <T : JFrame> FrameScope<T>.menuBar(block: CanAddChildrenScope<JMenuBar>.() -> Unit): JMenuBar {
     contract {
         callsInPlace(block, InvocationKind.EXACTLY_ONCE)
     }
     val menuBar = JMenuBar()
-    ChildrenScope(menuBar).apply(block)
+    CanAddChildrenScope(menuBar).apply(block)
     self.jMenuBar = menuBar
     return menuBar
 }
 
 @OptIn(ExperimentalContracts::class)
-inline fun ChildrenScope<JMenuBar>.menu(text: String, block: ChildrenScope<JMenu>.() -> Unit): JMenu {
+inline fun CanAddChildrenScope<JMenuBar>.menu(text: String, block: CanAddChildrenScope<JMenu>.() -> Unit): JMenu {
     contract {
         callsInPlace(block, InvocationKind.EXACTLY_ONCE)
     }
     val menu = JMenu(text)
-    ChildrenScope(menu).apply(block)
+    CanAddChildrenScope(menu).apply(block)
     add(menu)
     return menu
 }
 
 @OptIn(ExperimentalContracts::class)
 @JvmName("menuJMenu")
-inline fun ChildrenScope<JMenu>.menu(text: String, block: ChildrenScope<JMenu>.() -> Unit): JMenu {
+inline fun CanAddChildrenScope<JMenu>.menu(text: String, block: CanAddChildrenScope<JMenu>.() -> Unit): JMenu {
     contract {
         callsInPlace(block, InvocationKind.EXACTLY_ONCE)
     }
     val menu = JMenu(text)
-    ChildrenScope(menu).apply(block)
+    CanAddChildrenScope(menu).apply(block)
     add(menu)
     return menu
 }
 
 @OptIn(ExperimentalContracts::class)
-inline fun ChildrenScope<JMenu>.item(text: String, block: BasicScope<JMenuItem>.() -> Unit): JMenuItem {
+inline fun CanAddChildrenScope<JMenu>.item(text: String, block: BasicScope<JMenuItem>.() -> Unit): JMenuItem {
     contract {
         callsInPlace(block, InvocationKind.EXACTLY_ONCE)
     }
@@ -51,7 +51,7 @@ inline fun ChildrenScope<JMenu>.item(text: String, block: BasicScope<JMenuItem>.
 }
 
 @OptIn(ExperimentalContracts::class)
-inline fun ChildrenScope<JMenu>.item(icon: Icon, block: BasicScope<JMenuItem>.() -> Unit): JMenuItem {
+inline fun CanAddChildrenScope<JMenu>.item(icon: Icon, block: BasicScope<JMenuItem>.() -> Unit): JMenuItem {
     contract {
         callsInPlace(block, InvocationKind.EXACTLY_ONCE)
     }
@@ -59,7 +59,11 @@ inline fun ChildrenScope<JMenu>.item(icon: Icon, block: BasicScope<JMenuItem>.()
 }
 
 @OptIn(ExperimentalContracts::class)
-inline fun ChildrenScope<JMenu>.item(text: String, icon: Icon, block: BasicScope<JMenuItem>.() -> Unit): JMenuItem {
+inline fun CanAddChildrenScope<JMenu>.item(
+    text: String,
+    icon: Icon,
+    block: BasicScope<JMenuItem>.() -> Unit
+): JMenuItem {
     contract {
         callsInPlace(block, InvocationKind.EXACTLY_ONCE)
     }
@@ -67,22 +71,22 @@ inline fun ChildrenScope<JMenu>.item(text: String, icon: Icon, block: BasicScope
 }
 
 
-fun ChildrenScope<JMenu>.item(text: String) =
+fun CanAddChildrenScope<JMenu>.item(text: String) =
     item(text) {}
 
-fun ChildrenScope<JMenu>.item(icon: Icon) =
+fun CanAddChildrenScope<JMenu>.item(icon: Icon) =
     item(icon) {}
 
-fun ChildrenScope<JMenu>.item(text: String, icon: Icon) =
+fun CanAddChildrenScope<JMenu>.item(text: String, icon: Icon) =
     item(text, icon) {}
 
 
-val ChildrenScope<JMenu>.separator: Unit
+val CanAddChildrenScope<JMenu>.separator: Unit
     get() = self.addSeparator()
 
 
 @OptIn(ExperimentalContracts::class)
-inline fun ChildrenScope<JMenu>.radioItem(
+inline fun CanAddChildrenScope<JMenu>.radioItem(
     text: String,
     selected: Boolean = false,
     group: ButtonGroup? = null,
@@ -98,7 +102,7 @@ inline fun ChildrenScope<JMenu>.radioItem(
 }
 
 @OptIn(ExperimentalContracts::class)
-inline fun ChildrenScope<JMenu>.radioItem(
+inline fun CanAddChildrenScope<JMenu>.radioItem(
     icon: Icon,
     selected: Boolean = false,
     group: ButtonGroup? = null,
@@ -113,7 +117,7 @@ inline fun ChildrenScope<JMenu>.radioItem(
 }
 
 @OptIn(ExperimentalContracts::class)
-inline fun ChildrenScope<JMenu>.radioItem(
+inline fun CanAddChildrenScope<JMenu>.radioItem(
     text: String,
     icon: Icon,
     selected: Boolean = false,
@@ -128,26 +132,26 @@ inline fun ChildrenScope<JMenu>.radioItem(
     return applyComponent(btn, block)
 }
 
-fun ChildrenScope<JMenu>.radioItem(
+fun CanAddChildrenScope<JMenu>.radioItem(
     text: String,
     selected: Boolean = false,
     group: ButtonGroup? = null
 ) = radioItem(text, selected, group) {}
 
-fun ChildrenScope<JMenu>.radioItem(
+fun CanAddChildrenScope<JMenu>.radioItem(
     icon: Icon,
     selected: Boolean = false,
     group: ButtonGroup? = null
 ) = radioItem(icon, selected, group) {}
 
-fun ChildrenScope<JMenu>.radioItem(
+fun CanAddChildrenScope<JMenu>.radioItem(
     text: String, icon: Icon,
     selected: Boolean = false,
     group: ButtonGroup? = null
 ) = radioItem(text, icon, selected, group) {}
 
 @OptIn(ExperimentalContracts::class)
-inline fun ChildrenScope<JMenu>.checkItem(
+inline fun CanAddChildrenScope<JMenu>.checkItem(
     text: String,
     selected: Boolean = false,
     block: BasicScope<JCheckBoxMenuItem>.() -> Unit
@@ -160,7 +164,7 @@ inline fun ChildrenScope<JMenu>.checkItem(
 
 
 @OptIn(ExperimentalContracts::class)
-inline fun ChildrenScope<JMenu>.checkItem(
+inline fun CanAddChildrenScope<JMenu>.checkItem(
     text: String,
     icon: Icon,
     selected: Boolean = false,
@@ -172,8 +176,8 @@ inline fun ChildrenScope<JMenu>.checkItem(
     return applyComponent(JCheckBoxMenuItem(text, icon, selected), block)
 }
 
-fun ChildrenScope<JMenu>.checkItem(text: String) =
+fun CanAddChildrenScope<JMenu>.checkItem(text: String) =
     checkItem(text) {}
 
-fun ChildrenScope<JMenu>.checkItem(text: String, icon: Icon) =
+fun CanAddChildrenScope<JMenu>.checkItem(text: String, icon: Icon) =
     checkItem(text, icon) {}

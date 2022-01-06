@@ -1,7 +1,7 @@
 package io.github.mslxl.ktswing.layout
 
-import io.github.mslxl.ktswing.ChildrenScope
-import io.github.mslxl.ktswing.ContainerScope
+import io.github.mslxl.ktswing.CanAddChildrenScope
+import io.github.mslxl.ktswing.CanSetLayoutScope
 import io.github.mslxl.ktswing.LayoutScope
 import java.awt.BorderLayout
 import java.awt.Component
@@ -9,7 +9,7 @@ import java.awt.Container
 import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.contract
 
-class BorderLayoutDirectionScope<T : Container>(self: T, val direction: String) : ChildrenScope<T>(self) {
+class BorderLayoutDirectionScope<T : Container>(override val self: T, val direction: String) : CanAddChildrenScope<T> {
     override fun add(component: Component) {
         self.add(component, direction)
     }
@@ -71,7 +71,7 @@ fun <T : Container> borderLayout(
 }
 
 @OptIn(ExperimentalContracts::class)
-inline fun <T : Container> ContainerScope<T>.borderLayout(
+inline fun <T : Container> CanSetLayoutScope<T>.borderLayout(
     hGap: Int = 0,
     vGap: Int = 0,
     block: BorderLayoutScope<T>.() -> Unit

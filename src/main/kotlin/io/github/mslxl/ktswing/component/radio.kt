@@ -1,7 +1,7 @@
 package io.github.mslxl.ktswing.component
 
 import io.github.mslxl.ktswing.BasicScope
-import io.github.mslxl.ktswing.ChildrenScope
+import io.github.mslxl.ktswing.CanAddChildrenScope
 import javax.swing.ButtonGroup
 import javax.swing.Icon
 import javax.swing.JRadioButton
@@ -10,7 +10,7 @@ import kotlin.contracts.InvocationKind
 import kotlin.contracts.contract
 
 @OptIn(ExperimentalContracts::class)
-inline fun ChildrenScope<*>.radioButton(
+inline fun CanAddChildrenScope<*>.radioButton(
     text: String,
     selected: Boolean = false,
     group: ButtonGroup? = null,
@@ -25,7 +25,7 @@ inline fun ChildrenScope<*>.radioButton(
 }
 
 @OptIn(ExperimentalContracts::class)
-inline fun ChildrenScope<*>.radioButton(
+inline fun CanAddChildrenScope<*>.radioButton(
     icon: Icon,
     selected: Boolean = false,
     group: ButtonGroup? = null,
@@ -40,7 +40,7 @@ inline fun ChildrenScope<*>.radioButton(
 }
 
 @OptIn(ExperimentalContracts::class)
-inline fun ChildrenScope<*>.radioButton(
+inline fun CanAddChildrenScope<*>.radioButton(
     text: String,
     icon: Icon,
     selected: Boolean = false,
@@ -55,21 +55,21 @@ inline fun ChildrenScope<*>.radioButton(
     return applyComponent(btn, block)
 }
 
-fun ChildrenScope<*>.radioButton(
+fun CanAddChildrenScope<*>.radioButton(
     text: String,
     selected: Boolean = false,
     group: ButtonGroup? = null
 ) =
     radioButton(text, selected, group) {}
 
-fun ChildrenScope<*>.radioButton(
+fun CanAddChildrenScope<*>.radioButton(
     icon: Icon,
     selected: Boolean = false,
     group: ButtonGroup? = null
 ) =
     radioButton(icon, selected, group) {}
 
-fun ChildrenScope<*>.radioButton(
+fun CanAddChildrenScope<*>.radioButton(
     text: String, icon: Icon,
     selected: Boolean = false,
     group: ButtonGroup? = null

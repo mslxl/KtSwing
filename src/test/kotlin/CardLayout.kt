@@ -1,6 +1,8 @@
+import io.github.mslxl.ktswing.attr
 import io.github.mslxl.ktswing.component.button
 import io.github.mslxl.ktswing.component.panel
 import io.github.mslxl.ktswing.component.tabbedPane
+import io.github.mslxl.ktswing.defaultLayout
 import io.github.mslxl.ktswing.exitOnClose
 import io.github.mslxl.ktswing.frame
 import io.github.mslxl.ktswing.layout.borderLayout

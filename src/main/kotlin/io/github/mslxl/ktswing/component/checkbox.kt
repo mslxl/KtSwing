@@ -1,7 +1,7 @@
 package io.github.mslxl.ktswing.component
 
 import io.github.mslxl.ktswing.BasicScope
-import io.github.mslxl.ktswing.ChildrenScope
+import io.github.mslxl.ktswing.CanAddChildrenScope
 import javax.swing.Icon
 import javax.swing.JCheckBox
 import kotlin.contracts.ExperimentalContracts
@@ -9,7 +9,7 @@ import kotlin.contracts.InvocationKind
 import kotlin.contracts.contract
 
 @OptIn(ExperimentalContracts::class)
-inline fun ChildrenScope<*>.checkBox(
+inline fun CanAddChildrenScope<*>.checkBox(
     text: String,
     selected: Boolean = false,
     block: BasicScope<JCheckBox>.() -> Unit
@@ -21,7 +21,7 @@ inline fun ChildrenScope<*>.checkBox(
 }
 
 @OptIn(ExperimentalContracts::class)
-inline fun ChildrenScope<*>.checkBox(
+inline fun CanAddChildrenScope<*>.checkBox(
     icon: Icon,
     selected: Boolean = false,
     block: BasicScope<JCheckBox>.() -> Unit
@@ -33,7 +33,7 @@ inline fun ChildrenScope<*>.checkBox(
 }
 
 @OptIn(ExperimentalContracts::class)
-inline fun ChildrenScope<*>.checkBox(
+inline fun CanAddChildrenScope<*>.checkBox(
     text: String,
     icon: Icon,
     selected: Boolean = false,
@@ -45,11 +45,11 @@ inline fun ChildrenScope<*>.checkBox(
     return applyComponent(JCheckBox(text, icon, selected), block)
 }
 
-fun ChildrenScope<*>.checkBox(text: String) =
+fun CanAddChildrenScope<*>.checkBox(text: String) =
     checkBox(text) {}
 
-fun ChildrenScope<*>.checkBox(icon: Icon) =
+fun CanAddChildrenScope<*>.checkBox(icon: Icon) =
     checkBox(icon) {}
 
-fun ChildrenScope<*>.checkBox(text: String, icon: Icon) =
+fun CanAddChildrenScope<*>.checkBox(text: String, icon: Icon) =
     checkBox(text, icon) {}

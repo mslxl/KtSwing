@@ -2,8 +2,8 @@
 
 package io.github.mslxl.ktswing.component
 
-import io.github.mslxl.ktswing.ChildrenScope
-import io.github.mslxl.ktswing.ContainerScope
+import io.github.mslxl.ktswing.CanAddChildrenScope
+import io.github.mslxl.ktswing.CanSetLayoutScope
 import io.github.mslxl.ktswing.LayoutScope
 import io.github.mslxl.ktswing.NeedUpdate
 import io.github.mslxl.ktswing.layout.LayoutScopeWrapper
@@ -14,7 +14,7 @@ import kotlin.contracts.InvocationKind
 import kotlin.contracts.contract
 
 @OptIn(ExperimentalContracts::class)
-inline fun <T : Container> ChildrenScope<T>.panel(block: ContainerScope<JPanel>.() -> Unit): JPanel {
+inline fun <T : Container> CanAddChildrenScope<T>.panel(block: CanSetLayoutScope<JPanel>.() -> Unit): JPanel {
     contract {
         callsInPlace(block, InvocationKind.EXACTLY_ONCE)
     }
@@ -22,7 +22,7 @@ inline fun <T : Container> ChildrenScope<T>.panel(block: ContainerScope<JPanel>.
 }
 
 
-fun <T : Container> ChildrenScope<T>.panel(): JPanel {
+fun <T : Container> CanAddChildrenScope<T>.panel(): JPanel {
     return panel {
 
     }
@@ -30,7 +30,7 @@ fun <T : Container> ChildrenScope<T>.panel(): JPanel {
 
 
 @OptIn(ExperimentalContracts::class)
-inline fun <T : Container, L : LayoutScope> ChildrenScope<T>.panelWith(
+inline fun <T : Container, L : LayoutScope> CanAddChildrenScope<T>.panelWith(
     layoutScope: LayoutScopeWrapper<Container, L>,
     block: L.() -> Unit
 ) {
