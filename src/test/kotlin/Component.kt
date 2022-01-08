@@ -2,6 +2,7 @@ import io.github.mslxl.ktswing.*
 import io.github.mslxl.ktswing.component.*
 import io.github.mslxl.ktswing.component.adv.lazyPanel
 import io.github.mslxl.ktswing.layout.borderLayout
+import io.github.mslxl.ktswing.layout.borderLayoutCenter
 import io.github.mslxl.ktswing.layout.flowLayout
 import javax.swing.ButtonGroup
 import javax.swing.JSplitPane
@@ -35,66 +36,62 @@ fun main() = frame {
 
     defaultLayout {
         tabbedPane {
-            tab("Basic"){
-                flowLayout {
-                    button("Button")
-                    checkBox("CheckBox")
-                    textArea(text = "TextArea")
-                    textField(text = "TextField")
-                    passwordField(password = "3.141592653")
-                    panel {
-                        attr {
-                            border = TitledBorder("RadioButton")
-                        }
-                        flowLayout {
-                            val btnGroup = ButtonGroup()
-                            radioButton(text = "Option 1", group = btnGroup)
-                            radioButton(text = "Option 2", group = btnGroup)
-                            radioButton(text = "Option 3", group = btnGroup)
-                        }
+            tabPanelWith("Basic", flowLayout()) {
+                button("Button")
+                checkBox("CheckBox")
+                textArea(text = "TextArea")
+                textField(text = "TextField")
+                passwordField(password = "3.141592653")
+                panel {
+                    attr {
+                        border = TitledBorder("RadioButton")
                     }
-                    toggleButton("ToggleButton")
-                    progressBar(min = 0, max = 100) {
-                        attr {
-                            value = 50
-                        }
-                    }
-                    slider(1, min = 0, max = 100)
-                    scrollbar(1)
-                    scrollPane {
-                        list((1..50).map { "Item $it" })
-                    }
-                    comboBox((1..10).map { "Item $it" })
-                    splitPane(newOrient = JSplitPane.VERTICAL_SPLIT) {
-                        allSplitPane {
-                            it.dividerSize = 5
-                        }
-                        button("Child of JSplitPane")
-                        toolBar() {
-                            button("1")
-                            button("2")
-                            button("3")
-                        }
-                        spinner()
+                    flowLayout {
+                        val btnGroup = ButtonGroup()
+                        radioButton(text = "Option 1", group = btnGroup)
+                        radioButton(text = "Option 2", group = btnGroup)
+                        radioButton(text = "Option 3", group = btnGroup)
                     }
                 }
+                toggleButton("ToggleButton")
+                progressBar(min = 0, max = 100) {
+                    attr {
+                        value = 50
+                    }
+                }
+                slider(1, min = 0, max = 100)
+                scrollbar(1)
+                scrollPane {
+                    list((1..50).map { "Item $it" })
+                }
+                comboBox((1..10).map { "Item $it" })
+                splitPane(newOrient = JSplitPane.VERTICAL_SPLIT) {
+                    allSplitPane {
+                        it.dividerSize = 5
+                    }
+                    button("Child of JSplitPane")
+                    toolBar() {
+                        button("1")
+                        button("2")
+                        button("3")
+                    }
+                    spinner()
+                }
             }
-            tab("Second") {
+            tabPanel("Second") {
                 borderLayout {
                     top {
                         label("2nd Tab")
                     }
                 }
             }
-            tab("Switch to this tab will costume 0.5s") {
-                defaultLayout {
-                    lazyPanel {
-                        Thread.sleep(500)
-                        defaultLayout {
-                            button("Lazy panel (unstable)")
-                        }
-
+            tabPanelWith("Switch to this tab will costume 0.5s", borderLayoutCenter()) {
+                lazyPanel {
+                    Thread.sleep(500)
+                    defaultLayout {
+                        button("Lazy panel (unstable)")
                     }
+
                 }
             }
         }

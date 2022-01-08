@@ -27,7 +27,7 @@ fun main() = frame {
                     }
                     card("2") {
                         tabbedPane {
-                            tab("ww"){
+                            tabPanel("ww") {
                                 defaultLayout {
                                     button("wwww")
                                 }

@@ -9,7 +9,8 @@ import java.awt.Container
 import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.contract
 
-class BorderLayoutDirectionScope<T : Container>(override val self: T, val direction: String) : CanAddChildrenScope<T> {
+class BorderLayoutDirectionScope<T : Container>(override val self: T, val direction: String) : CanAddChildrenScope<T>,
+    LayoutScope {
     override fun add(component: Component) {
         self.add(component, direction)
     }
@@ -80,4 +81,27 @@ inline fun <T : Container> CanSetLayoutScope<T>.borderLayout(
         callsInPlace(block, kotlin.contracts.InvocationKind.EXACTLY_ONCE)
     }
     return borderLayout<T>(hGap, vGap).invoke(self).apply(block).layout
+}
+
+@OptIn(ExperimentalContracts::class)
+inline fun <T : Container> CanSetLayoutScope<T>.borderLayoutCenter(block: (BorderLayoutDirectionScope<T>.() -> Unit)): BorderLayout {
+    contract {
+        callsInPlace(block, kotlin.contracts.InvocationKind.EXACTLY_ONCE)
+    }
+    return borderLayout {
+        center(block)
+    }
+}
+
+fun <T : Container> borderLayoutCenter(): LayoutScopeWrapper<T, BorderLayoutDirectionScope<T>> {
+    val layout = BorderLayout()
+    return { self: T ->
+        val scope = BorderLayoutScope(self, layout)
+        var result: BorderLayoutDirectionScope<T>
+        scope.center {
+            result = this
+        }
+        self.layout = layout
+        result
+    }
 }
