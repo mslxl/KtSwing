@@ -1,8 +1,10 @@
 import io.github.mslxl.ktswing.*
 import io.github.mslxl.ktswing.component.*
+import io.github.mslxl.ktswing.component.adv.lazyPanel
 import io.github.mslxl.ktswing.layout.borderLayout
 import io.github.mslxl.ktswing.layout.flowLayout
 import javax.swing.ButtonGroup
+import javax.swing.JSplitPane
 import javax.swing.border.TitledBorder
 
 fun main() = frame {
@@ -63,12 +65,35 @@ fun main() = frame {
                         list((1..50).map { "Item $it" })
                     }
                     comboBox((1..10).map { "Item $it" })
+                    splitPane(newOrient = JSplitPane.VERTICAL_SPLIT) {
+                        allSplitPane {
+                            it.dividerSize = 5
+                        }
+                        button("Child of JSplitPane")
+                        toolBar() {
+                            button("1")
+                            button("2")
+                            button("3")
+                        }
+                        spinner()
+                    }
                 }
             }
-            tab("Second"){
+            tab("Second") {
                 borderLayout {
-                    top{
+                    top {
                         label("2nd Tab")
+                    }
+                }
+            }
+            tab("Switch to this tab will costume 0.5s") {
+                defaultLayout {
+                    lazyPanel {
+                        Thread.sleep(500)
+                        defaultLayout {
+                            button("Lazy panel (unstable)")
+                        }
+
                     }
                 }
             }
