@@ -9,15 +9,17 @@ A simple DSL library for Swing.
 ## How it looks like
 ```kotlin
 fun searchBar() = swing<JPanel> {
-    attr {
-        border = TitledBorder("Search")
-    }
-    borderLayout {
-        center {
-            textField()
+    panel {
+        attr {
+            border = TitledBorder("Search")
         }
-        right {
-            button("Search")
+        borderLayout {
+            center {
+                textField()
+            }
+            right {
+                button("Search")
+            }
         }
     }
 }
@@ -30,7 +32,7 @@ fun main() =
         }
         borderLayout {
             top {
-                panel(searchBar().initBlock)
+                add(searchBar())
             }
             center {
                 textArea()
@@ -57,7 +59,7 @@ allprojects {
 **Step 2.** Add the dependency
 ```groovy
     dependencies {
-    implementation 'com.github.mslxl:KtSwing:2.1.0'
+    implementation 'com.github.mslxl:KtSwing:2.1.2'
 }
 ```
 Enjoy it!
