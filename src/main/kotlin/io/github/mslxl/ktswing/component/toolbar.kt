@@ -24,3 +24,8 @@ fun CanAddChildrenScope<*>.toolBar(
     name: String? = null,
     orient: Int = JToolBar.HORIZONTAL,
 ) = toolBar(name, orient) {}
+
+val <T : JToolBar> CanAddChildrenScope<T>.separator: Unit
+    get() {
+        self.addSeparator()
+    }
