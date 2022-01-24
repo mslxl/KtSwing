@@ -19,7 +19,7 @@ class BoxScope(override val self: Box, private val isVertical: Boolean) : CanAdd
     val glue: Component
         get() = addAndReturn(
             if (isVertical) Box.createVerticalGlue()
-            else Box.createHorizontalBox()
+            else Box.createHorizontalGlue()
         )
 
 
