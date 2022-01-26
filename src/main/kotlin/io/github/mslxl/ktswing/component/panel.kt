@@ -33,11 +33,11 @@ fun <T : Container> CanAddChildrenScope<T>.panel(): JPanel {
 inline fun <T : Container, L : LayoutScope> CanAddChildrenScope<T>.panelWith(
     layoutScope: LayoutScopeWrapper<Container, L>,
     block: L.() -> Unit
-) {
+): JPanel {
     contract {
         callsInPlace(block, InvocationKind.EXACTLY_ONCE)
     }
-    panel {
+    return panel {
         val scope = layoutScope.invoke(self).apply(block)
         if (scope is NeedUpdate) scope.update()
     }

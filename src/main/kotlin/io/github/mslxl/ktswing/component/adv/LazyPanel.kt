@@ -42,11 +42,11 @@ fun CanAddChildrenScope<*>.lazyPanel(block: CanSetLayoutScope<LazyPanel>.() -> U
 fun <T : Container, L : LayoutScope> CanAddChildrenScope<T>.lazyPanelWith(
     layoutScope: LayoutScopeWrapper<Container, L>,
     block: L.() -> Unit
-) {
+): JPanel {
     contract {
         callsInPlace(block, InvocationKind.EXACTLY_ONCE)
     }
-    lazyPanel {
+    return lazyPanel {
         val scope = layoutScope.invoke(self).apply(block)
         if (scope is NeedUpdate) {
             scope.update()
