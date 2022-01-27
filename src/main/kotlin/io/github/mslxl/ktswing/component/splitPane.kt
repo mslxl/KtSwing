@@ -1,6 +1,7 @@
 package io.github.mslxl.ktswing.component
 
 import io.github.mslxl.ktswing.CanAddChildrenScope
+import io.github.mslxl.ktswing.LayoutScope
 import io.github.mslxl.ktswing.NeedUpdate
 import java.awt.Component
 import javax.swing.JSplitPane
@@ -19,7 +20,7 @@ class JSplitPane2PartScope(override val self: JSplitPane, private val isLeft: Bo
     }
 }
 
-class JSplitPane2Scope(val self: JSplitPane) {
+class JSplitPane2Scope(val self: JSplitPane) : LayoutScope {
     @OptIn(ExperimentalContracts::class)
     inline fun left(block: JSplitPane2PartScope.() -> Unit) {
         contract {
